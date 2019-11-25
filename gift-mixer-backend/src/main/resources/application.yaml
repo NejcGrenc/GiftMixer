@@ -1,0 +1,8 @@
+server:
+  port: 9000
+  
+storage:
+  wish:
+    folder: C:\\Users\\Nejc\\Development\\Projects\\GiftMixer\\files\\wish
+  users:
+    file: C:\\Users\\Nejc\\Development\\Projects\\GiftMixer\\files\\users.txt
