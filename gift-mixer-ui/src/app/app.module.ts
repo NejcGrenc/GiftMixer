@@ -9,6 +9,7 @@ import { DariloComponent } from './darilo/darilo.component';
 import { KoncanoComponent } from './koncano/koncano.component';
 import { MissingComponent } from './missing/missing.component';
 import { RestServiceComponent } from './rest-service/rest-service.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { RestServiceComponent } from './rest-service/rest-service.component';
     AppRoutingModule,  
       
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     RestServiceComponent

@@ -1,3 +1,11 @@
+
+# GiftMixer
+
+I do not own any images used in here
+Sources:
+- christmas bell icon: https://freepngimg.com/download/christmas_bell/2-2-christmas-bell-png.png
+
+
 # GiftMixer
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
