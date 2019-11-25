@@ -9,7 +9,7 @@
 <body>
 	<p>Darilo works!</p>
 	
-	<textarea  #wishField rows="50" cols="50"></textarea>
-  <button type="submit" (click) = 'setWish(wishField.value)'>Končano</button>
+	<textarea [(ngModel)]="wish" rows="50" cols="50"></textarea>
+  <button type="submit" (click) = 'setWish()'>Shrani</button>
 </body>
 </html>

@@ -20,11 +20,16 @@ public class UserVerification {
 	
     @RequestMapping(value = "/verifyUser", method = RequestMethod.POST)
 	public Boolean verifyUser(@RequestBody UserVerificationRequest request) {
+    	System.out.println("Processing verification of user: " + request.userName);
+
+    	boolean success = false;
 		Map<String, String> verificationMap = verificationMap();
 		if (verificationMap.containsKey(request.userName)) {
-			return verificationMap.get(request.userName).equals(request.userCode);
+			success = verificationMap.get(request.userName).equals(request.userCode);
 		}
-		return false;
+		
+    	System.out.println("User: " + request.userName + " " + (success ? "successfully" : "unsuccessfully") + " verificated");
+    	return success;
 	}
 	
 	public Map<String, String> verificationMap() {

@@ -9,7 +9,16 @@ export class RestServiceComponent {
 
   baseUrl = 'http://localhost:9000';
   
-  send(path: string, data: any): Observable<Boolean> {
-    return this.http.post<Boolean>(this.baseUrl + path, data);
+  send(path: string, data: any): Observable<boolean> {
+    return this.http.post<boolean>(this.baseUrl + path, data);
   }
+  
+  fetch(path: string, data: any): Observable<WishResponse> {
+    return this.http.post<WishResponse>(this.baseUrl + path, data);
+  }
+}
+
+export class WishResponse {
+  success: boolean;
+  wishContent: string;
 }
