@@ -1,5 +1,6 @@
 package grenc.giftmixer.backend.service.delegate;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,9 +14,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class WishFiles {
+	
+	private static final String suffix = ".txt";
 
 	@Value("${storage.wish.folder}")
-	String wishPath;
+	public String wishPath;
+	
+	public String filePathForName(String userName) {
+		return wishPath + File.separator + userName + suffix;
+	}
 	
 	public List<String> findAllWishFiles() {
 		try (Stream<Path> walk = Files.walk(Paths.get(wishPath))) {
@@ -30,8 +37,8 @@ public class WishFiles {
 			return null;
 		}
 	}
-	
+		
 	private String removeSuffix(String original) {
-		return original.substring(0, original.indexOf(".txt"));
+		return original.substring(0, original.indexOf(suffix));
 	}
 }

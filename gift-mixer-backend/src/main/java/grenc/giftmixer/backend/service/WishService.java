@@ -2,14 +2,12 @@
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,9 +22,6 @@ import grenc.giftmixer.backend.service.delegate.WishFiles;
 @RestController
 public class WishService {
 	
-	@Value("${storage.wish.folder}")
-	String wishPath;
-	
 	@Autowired
 	WishFiles wishFiles;
 	
@@ -38,7 +33,7 @@ public class WishService {
     	System.out.println("Processing '/saveWish' request from user: " + request.userName);
     	
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(wishPath + File.separator + request.userName + ".txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(wishFiles.filePathForName(request.userName)));
             writer.write(request.wishContent);
 			writer.close();
 	        return true;
@@ -54,7 +49,7 @@ public class WishService {
     	System.out.println("Processing '/fetchWish' request from user: " + userName);
     	
     	StringBuilder content = new StringBuilder();
-    	try (BufferedReader br = new BufferedReader(new FileReader(wishPath + File.separator + userName + ".txt"))) {
+    	try (BufferedReader br = new BufferedReader(new FileReader(wishFiles.filePathForName(userName)))) {
 	        String line;
 	        while ((line = br.readLine()) != null) {
 	        	content.append(line);
@@ -75,24 +70,30 @@ public class WishService {
     @RequestMapping(value = "/wishList", method = RequestMethod.POST)
     public WishListResponse wishList() {
     	System.out.println("Processing '/wishList' request");
-    	
-    	List<String> existingWishes = wishFiles.findAllWishFiles();
-    	if (existingWishes == null) {
-        	System.out.println("An error occourred while trying to find existing wishes.");
-        	return new WishListResponse();
-    	}
-    	
-    	List<String> allUsers = userService.users();
-    	if (allUsers == null) {
-        	System.out.println("An error occourred while trying to find all users.");
-        	return new WishListResponse();
-    	}
-    	
-    	WishListResponse response = new WishListResponse();
-    	response.success = true;
-    	response.allUsers = allUsers;
-    	response.madeWishes = existingWishes;
-    	return response;
+    	 
+    	try {
+	    	List<String> existingWishes = wishFiles.findAllWishFiles();
+	    	if (existingWishes == null) {
+	        	System.out.println("An error occourred while trying to find existing wishes.");
+	        	return new WishListResponse();
+	    	}
+	    	
+	    	List<String> allUsers = userService.users();
+	    	if (allUsers == null) {
+	        	System.out.println("An error occourred while trying to find all users.");
+	        	return new WishListResponse();
+	    	}
+	    	
+	    	WishListResponse response = new WishListResponse();
+	    	response.success = true;
+	    	response.allUsers = allUsers;
+	    	response.madeWishes = existingWishes;
+	    	return response;
+	    	
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new WishListResponse();
+		}
     }
     
 }
