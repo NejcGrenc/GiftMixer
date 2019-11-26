@@ -1,2 +1,4 @@
-Nejc:12345
+Nejc:code:12345
+Nejc:email:nejc@grenc.si
+Ines:f:ines@grenc.si
 Ines-des

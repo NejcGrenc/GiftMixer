@@ -1,4 +1,4 @@
-package grenc.giftmixer.backend.service;
+ package grenc.giftmixer.backend.service;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -6,22 +6,32 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import grenc.giftmixer.backend.model.WishListResponse;
 import grenc.giftmixer.backend.model.WishRequest;
 import grenc.giftmixer.backend.model.WishResponse;
+import grenc.giftmixer.backend.service.delegate.WishFiles;
 
 
 @RestController
 public class WishService {
 	
 	@Value("${storage.wish.folder}")
-	private String wishPath;
+	String wishPath;
+	
+	@Autowired
+	WishFiles wishFiles;
+	
+	@Autowired
+	UserService userService;
 	
     @RequestMapping(value = "/saveWish", method = RequestMethod.POST)
     public boolean saveWish(@RequestBody WishRequest request) {
@@ -60,6 +70,29 @@ public class WishService {
 			e.printStackTrace();
 			return new WishResponse();
 		}
+    }
+    
+    @RequestMapping(value = "/wishList", method = RequestMethod.POST)
+    public WishListResponse wishList() {
+    	System.out.println("Processing '/wishList' request");
+    	
+    	List<String> existingWishes = wishFiles.findAllWishFiles();
+    	if (existingWishes == null) {
+        	System.out.println("An error occourred while trying to find existing wishes.");
+        	return new WishListResponse();
+    	}
+    	
+    	List<String> allUsers = userService.users();
+    	if (allUsers == null) {
+        	System.out.println("An error occourred while trying to find all users.");
+        	return new WishListResponse();
+    	}
+    	
+    	WishListResponse response = new WishListResponse();
+    	response.success = true;
+    	response.allUsers = allUsers;
+    	response.madeWishes = existingWishes;
+    	return response;
     }
     
 }
