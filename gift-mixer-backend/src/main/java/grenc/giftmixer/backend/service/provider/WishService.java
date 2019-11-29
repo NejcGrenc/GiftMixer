@@ -1,4 +1,4 @@
- package grenc.giftmixer.backend.service;
+ package grenc.giftmixer.backend.service.provider;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import grenc.giftmixer.backend.model.WishListResponse;
 import grenc.giftmixer.backend.model.WishRequest;
-import grenc.giftmixer.backend.model.WishResponse;
+import grenc.giftmixer.backend.model.rest.RestResponse;
 import grenc.giftmixer.backend.service.delegate.WishFiles;
-
 
 @RestController
 public class WishService {
@@ -45,7 +43,7 @@ public class WishService {
     }
     
     @RequestMapping(value = "/fetchWish", method = RequestMethod.POST)
-    public WishResponse fetchWish(@RequestBody String userName) {
+    public RestResponse<String> fetchWish(@RequestBody String userName) {
     	System.out.println("Processing '/fetchWish' request from user: " + userName);
     	
     	StringBuilder content = new StringBuilder();
@@ -55,45 +53,24 @@ public class WishService {
 	        	content.append(line);
 	        	content.append("\n");
 	        }
-	        
-	        WishResponse response = new WishResponse();
-	        response.success = true;
-	        response.wishContent = content.toString();
-			return response;
+	    	return RestResponse.success(content.toString());
 			
 		} catch (IndexOutOfBoundsException | IOException e) {
 			e.printStackTrace();
-			return new WishResponse();
+			return RestResponse.fail();
 		}
     }
     
     @RequestMapping(value = "/wishList", method = RequestMethod.POST)
-    public WishListResponse wishList() {
+    public RestResponse<List<String>> wishList() {
     	System.out.println("Processing '/wishList' request");
-    	 
-    	try {
-	    	List<String> existingWishes = wishFiles.findAllWishFiles();
-	    	if (existingWishes == null) {
-	        	System.out.println("An error occourred while trying to find existing wishes.");
-	        	return new WishListResponse();
-	    	}
-	    	
-	    	List<String> allUsers = userService.users();
-	    	if (allUsers == null) {
-	        	System.out.println("An error occourred while trying to find all users.");
-	        	return new WishListResponse();
-	    	}
-	    	
-	    	WishListResponse response = new WishListResponse();
-	    	response.success = true;
-	    	response.allUsers = allUsers;
-	    	response.madeWishes = existingWishes;
-	    	return response;
-	    	
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new WishListResponse();
-		}
+
+    	List<String> existingWishes = wishFiles.findAllWishFiles();
+    	if (existingWishes == null) {
+        	System.out.println("An error occourred while trying to find existing wishes.");
+        	return RestResponse.fail();
+    	}  	
+    	return RestResponse.success(existingWishes);
     }
     
 }

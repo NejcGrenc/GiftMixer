@@ -1,4 +1,4 @@
-package grenc.giftmixer.backend.service;
+package grenc.giftmixer.backend.service.provider;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -13,6 +13,7 @@ import org.springframework.core.io.ClassPathResource;
 
 import grenc.giftmixer.backend.model.User;
 import grenc.giftmixer.backend.model.UserVerificationRequest;
+import grenc.giftmixer.backend.model.rest.RestResponse;
 
 public class UserServiceTest {
 	
@@ -34,10 +35,11 @@ public class UserServiceTest {
 	public void shouldFindAllUsers() throws IOException {
 		userService.usersFile = new ClassPathResource("grenc/giftmixer/backend/service/users-ok.txt").getFile().getAbsolutePath();
 
-		List<String> users = userService.users();
-		assertEquals(2, users.size());
-		assertTrue(users.contains("Nejc"));
-		assertTrue(users.contains("Ines"));
+		RestResponse<List<String>> response = userService.users();
+		assertTrue(response.success);
+		assertEquals(2, response.value.size());
+		assertTrue(response.value.contains("Nejc"));
+		assertTrue(response.value.contains("Ines"));
 	}
 	
 	@Test

@@ -1,4 +1,4 @@
-package grenc.giftmixer.backend.service;
+package grenc.giftmixer.backend.service.provider;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import grenc.giftmixer.backend.model.User;
 import grenc.giftmixer.backend.model.UserVerificationRequest;
+import grenc.giftmixer.backend.model.rest.RestResponse;
 
 @RestController
 public class UserService {
@@ -37,11 +38,18 @@ public class UserService {
     	return success;
 	}
 	
-	public List<String> users() {
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+	public RestResponse<List<String>> users() {
     	System.out.println("Fetching list of all users");
 
 		Map<String, User> verificationMap = userDataMap();
-    	return new ArrayList<String>(verificationMap.keySet());
+    	List<String> allUsers = new ArrayList<String>(verificationMap.keySet());
+    	if (allUsers.isEmpty()) {
+        	System.out.println("An error occourred while trying to find all users.");
+        	return RestResponse.fail();
+    	}
+    	return RestResponse.success(allUsers);
+
 	}
 	
 	
