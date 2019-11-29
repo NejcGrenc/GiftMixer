@@ -16,7 +16,7 @@ public class EmailService {
 	EmailContentGenerator emailContentGenerator;
 
 	@Autowired
-    private JavaMailSender javaMailSender;
+    JavaMailSender javaMailSender;
 	
     @RequestMapping(value = "/emailTest", method = RequestMethod.GET)
 	public Boolean sample() {
