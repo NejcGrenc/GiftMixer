@@ -64,6 +64,18 @@ public class UserService {
     	return user.email;
 	}
 	
+	public String fetchCredentialsForUser(String userName) {
+    	System.out.println("Fetching credentials for user: " + userName);
+
+		Map<String, User> verificationMap = userDataMap();
+		User user = verificationMap.get(userName);
+    	if (user == null) {
+        	System.out.println("An error occourred while trying to find credentials for user: " + userName);
+        	return null;
+    	}
+    	return user.name + "-" + user.securityCode;
+	}
+	
 	
 	public Map<String, User> userDataMap() {
 		Map<String, User> map = new HashMap<>();

@@ -50,6 +50,13 @@ public class UserServiceTest {
 	}
 	
 	@Test
+	public void shouldFindCredentialsForUser() throws IOException {
+		userService.usersFile = new ClassPathResource("grenc/giftmixer/backend/service/users-ok.txt").getFile().getAbsolutePath();
+
+		assertEquals("Nejc-12345", userService.fetchCredentialsForUser("Nejc"));
+	}
+	
+	@Test
 	public void testValidMap() throws IOException {
 		userService.usersFile = new ClassPathResource("grenc/giftmixer/backend/service/users-ok.txt").getFile().getAbsolutePath();
 

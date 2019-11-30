@@ -30,6 +30,17 @@ public class EmailService {
           return true;
     }
     
+    public Boolean sendInvitation(String receiverEmail, String content) {
+    	SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(receiverEmail);
+
+        msg.setSubject(emailContentGenerator.generateSubject());
+        msg.setText(content);
+
+        javaMailSender.send(msg);
+        return true;
+    }
+    
     public Boolean sendSingleWish(String receiverEmail, String wishHolder, String wishContent) {
     	SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(receiverEmail);

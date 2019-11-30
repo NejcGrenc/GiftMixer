@@ -11,6 +11,8 @@ export class KoncanoComponent implements OnInit {
   private readonly badFetch_errorMessage: string = "Neuspešno branje uporabnikov!";
   private readonly wishSend_errorMessage: string = "Želje neuspešno oddane!";
   private readonly wishSend_successMessage: string = "Želje uspešno oddane!";
+  private readonly inviteSend_errorMessage: string = "Vabila neuspešno oddana!";
+  private readonly inviteSend_successMessage: string = "Vabila uspešno oddana!";
 
   allUsers: string[] = [];
   wishesGiven: string[] = [];
@@ -78,7 +80,7 @@ export class KoncanoComponent implements OnInit {
   }
 
   sendWishes() {
-    this.rest.fetch<string[]>("/distributeWishes", null).subscribe(
+    this.rest.send("/distributeWishes", null).subscribe(
       (response: boolean)=>{
         if (response) {
           console.log(this.wishSend_successMessage);
@@ -91,6 +93,24 @@ export class KoncanoComponent implements OnInit {
       (error)=>{
         console.error(error);
         alert(this.wishSend_errorMessage);
+      },
+    ); 
+  }
+  
+  sendInvitations() {
+    this.rest.send("/distributeInvitations", null).subscribe(
+      (response: boolean)=>{
+        if (response) {
+          console.log(this.inviteSend_successMessage);
+          alert(this.inviteSend_successMessage);
+        } else {
+          console.error(this.inviteSend_errorMessage);
+          alert(this.inviteSend_errorMessage);
+        }
+      },
+      (error)=>{
+        console.error(error);
+        alert(this.inviteSend_errorMessage);
       },
     ); 
   }

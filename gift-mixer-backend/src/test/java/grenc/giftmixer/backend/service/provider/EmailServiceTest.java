@@ -23,4 +23,10 @@ public class EmailServiceTest {
 		emailService.sendSingleWish("receiverEmail", "wishHolder", "wishContent");
 		Mockito.verify(emailService.javaMailSender).send(Mockito.any(SimpleMailMessage.class));
 	}
+	
+	@Test
+	public void noMatterWhatTheInvitationIsSent() {
+		emailService.sendInvitation("receiverEmail", "content");
+		Mockito.verify(emailService.javaMailSender).send(Mockito.any(SimpleMailMessage.class));
+	}
 }
