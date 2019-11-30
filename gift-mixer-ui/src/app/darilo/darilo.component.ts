@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RestServiceComponent, WishResponse } from '../rest-service/rest-service.component';
+import { RestServiceComponent, RestResponse } from '../rest-service/rest-service.component';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -71,6 +71,7 @@ export class DariloComponent implements OnInit {
       (response: boolean)=>{
         if (response) {
           console.log(this.setWish_successMessage);
+          alert(this.setWish_successMessage);
         } else {
           console.error(this.setWish_errorMessage);
           alert(this.setWish_errorMessage);
@@ -86,11 +87,11 @@ export class DariloComponent implements OnInit {
   getWish(): void {
     console.log("Getting wish for user:", this.userName);
 
-    this.rest.fetch("/fetchWish", this.userName).subscribe(
-      (response: WishResponse)=>{
+    this.rest.fetch<string>("/fetchWish", this.userName).subscribe(
+      (response: RestResponse<string>)=>{
         if (response.success) {
           console.log(this.getWish_successMessage);
-          this.wish = response.wishContent;
+          this.wish = response.value;
         } else {
           console.error(this.getWish_errorMessage);
         }

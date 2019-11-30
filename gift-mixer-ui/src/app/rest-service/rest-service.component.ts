@@ -13,12 +13,12 @@ export class RestServiceComponent {
     return this.http.post<boolean>(this.baseUrl + path, data);
   }
   
-  fetch(path: string, data: any): Observable<WishResponse> {
-    return this.http.post<WishResponse>(this.baseUrl + path, data);
+  fetch<T>(path: string, data: any): Observable<RestResponse<T>> {
+    return this.http.post<RestResponse<T>>(this.baseUrl + path, data);
   }
 }
 
-export class WishResponse {
+export class RestResponse<T> {
   success: boolean;
-  wishContent: string;
+  value: T;
 }
