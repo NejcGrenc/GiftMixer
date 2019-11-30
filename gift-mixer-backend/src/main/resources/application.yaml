@@ -20,3 +20,4 @@ storage:
     folder: C:\\Users\\Nejc\\Development\\Projects\\GiftMixer\\files\\wish
   users:
     file: C:\\Users\\Nejc\\Development\\Projects\\GiftMixer\\files\\users.txt
+host.address.darilo: localhost:9000
