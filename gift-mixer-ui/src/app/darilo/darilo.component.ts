@@ -16,8 +16,7 @@ export class DariloComponent implements OnInit {
   private readonly getWish_successMessage: string = "Želje so uspešno prebrane!";
   private readonly getWish_errorMessage: string = "Želja ni bilo mogoče najti!";
 
-
-  private userName: string;
+  userName: string;
   private userCode: string;
   userVerified: boolean;
   

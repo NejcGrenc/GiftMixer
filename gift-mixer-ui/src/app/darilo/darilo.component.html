@@ -7,11 +7,28 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-		<p>Darilo works!</p>
-		    <p>Darilo works!</p>
-		
-		
-		<textarea [(ngModel)]="wish" rows="50" cols="50"></textarea>
-	  <button type="submit" (click) = 'setWish()'>Shrani</button>
+
+  <ng-container *ngIf="userVerified; then mainPage else errorPage"></ng-container>
+
+  <ng-template #errorPage>
+      <app-missing></app-missing>
+  </ng-template>
+  
+
+  <ng-template #mainPage>
+			<h1>Dragi Božiček!</h1>
+			<br />
+			<p>Za Božič si želim:</p>
+			<br />
+			
+			<textarea [(ngModel)]="wish" rows="50" cols="50"></textarea>
+			<br />
+			<p>Podpisani: {{ userName }}</p>
+			<br />
+	    <br />
+			
+		  <button type="submit" (click) = 'setWish()'>Shrani</button>
+  </ng-template>
+
 </body>
 </html>
