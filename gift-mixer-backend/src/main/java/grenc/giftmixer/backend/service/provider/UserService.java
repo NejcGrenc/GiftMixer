@@ -51,6 +51,18 @@ public class UserService {
     	return RestResponse.success(allUsers);
 
 	}
+    
+	public String fetchEmailForUser(String userName) {
+    	System.out.println("Fetching email for user: " + userName);
+
+		Map<String, User> verificationMap = userDataMap();
+		User user = verificationMap.get(userName);
+    	if (user == null) {
+        	System.out.println("An error occourred while trying to find email for user: " + userName);
+        	return null;
+    	}
+    	return user.email;
+	}
 	
 	
 	public Map<String, User> userDataMap() {

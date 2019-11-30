@@ -43,6 +43,13 @@ public class UserServiceTest {
 	}
 	
 	@Test
+	public void shouldFindEmailForUser() throws IOException {
+		userService.usersFile = new ClassPathResource("grenc/giftmixer/backend/service/users-ok.txt").getFile().getAbsolutePath();
+
+		assertEquals("nejc@grenc.si", userService.fetchEmailForUser("Nejc"));
+	}
+	
+	@Test
 	public void testValidMap() throws IOException {
 		userService.usersFile = new ClassPathResource("grenc/giftmixer/backend/service/users-ok.txt").getFile().getAbsolutePath();
 

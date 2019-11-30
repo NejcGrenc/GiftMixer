@@ -20,6 +20,7 @@ public class WishersReceiversDistributorTest {
 		distributor.wishFiles = Mockito.mock(WishFiles.class);
 		distributor.wishService = Mockito.mock(WishService.class);
 		distributor.pairSorter = Mockito.mock(PairSorter.class);
+		distributor.userService = Mockito.mock(UserService.class);
 		distributor.emailService = Mockito.mock(EmailService.class);
 	}
 	
@@ -29,6 +30,7 @@ public class WishersReceiversDistributorTest {
 		Mockito.when(distributor.wishFiles.findAllWishFiles()).thenReturn(Arrays.asList("a", "b", "c", "d", "e"));
 		Mockito.when(distributor.pairSorter.splitIntoPairs(Mockito.anyList()))
 				.thenReturn(Arrays.asList(new Pair("a", "c"), new Pair("b", "d"), new Pair("c", "e"), new Pair("d", "a"), new Pair("e", "b")));
+		Mockito.when(distributor.userService.fetchEmailForUser((Mockito.anyString()))).thenReturn("email");
 		Mockito.when(distributor.wishService.fetchWish(Mockito.anyString())).thenReturn(RestResponse.success("wish"));
 
 		distributor.distributeWishes();

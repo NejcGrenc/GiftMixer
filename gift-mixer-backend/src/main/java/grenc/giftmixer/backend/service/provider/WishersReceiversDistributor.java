@@ -22,19 +22,27 @@ public class WishersReceiversDistributor {
 	WishService wishService;
 	
 	@Autowired
+	UserService userService;
+	
+	@Autowired
 	PairSorter pairSorter;
 	
 	@Autowired
 	EmailService emailService;
 	
-    @RequestMapping(value = "/distributeWishes", method = RequestMethod.GET)
+    @RequestMapping(value = "/distributeWishes", method = RequestMethod.POST)
 	public Boolean distributeWishes() {
     	try {
 			List<String> allUsers = wishFiles.findAllWishFiles();
 			List<Pair> wishPairs = pairSorter.splitIntoPairs(allUsers);
 			for (Pair pair : wishPairs) {
 				RestResponse<String> wish = wishService.fetchWish(pair.wisher);
-				emailService.sendSingleWish(pair.receiver, pair.wisher, wish.value);
+				String receiverEmail = userService.fetchEmailForUser(pair.receiver);
+				if (receiverEmail == null) {
+					continue;
+				}
+				
+				emailService.sendSingleWish(receiverEmail, pair.wisher, wish.value);
 			}
 			return true;
 			

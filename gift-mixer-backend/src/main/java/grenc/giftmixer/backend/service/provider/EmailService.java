@@ -18,7 +18,7 @@ public class EmailService {
 	@Autowired
     JavaMailSender javaMailSender;
 	
-    @RequestMapping(value = "/emailTest", method = RequestMethod.GET)
+    @RequestMapping(value = "/emailTest", method = RequestMethod.POST)
 	public Boolean sample() {
     	  SimpleMailMessage msg = new SimpleMailMessage();
           msg.setTo("n.grenc@j-it.at");
