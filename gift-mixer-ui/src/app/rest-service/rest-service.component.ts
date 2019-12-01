@@ -7,7 +7,8 @@ export class RestServiceComponent {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = 'http://localhost:9000';
+//  baseUrl = 'http://localhost:9000';
+  baseUrl = 'http://grenc.eu:9000';
   
   send(path: string, data: any): Observable<boolean> {
     return this.http.post<boolean>(this.baseUrl + path, data);

@@ -14,6 +14,10 @@ spring:
         timeout: 5000
         writetimeout: 5000
         starttls.enable: true
+
+
+management.endpoint.shutdown.enabled: true
+endpoints.shutdown.enabled: true
   
 storage:
   wish:
