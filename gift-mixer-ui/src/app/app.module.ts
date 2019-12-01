@@ -10,6 +10,7 @@ import { KoncanoComponent } from './koncano/koncano.component';
 import { MissingComponent } from './missing/missing.component';
 import { RestServiceComponent } from './rest-service/rest-service.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,  
+    MatButtonModule,
       
     HttpClientModule,
     FormsModule,

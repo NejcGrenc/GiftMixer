@@ -1,4 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%; 
+}
+
+body { 
+  margin: 0; 
+  //  font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+body, p, h1, h2, h3, textarea {
+  font-family: Arial;
+}
+
+
+// Make placeholders display in italic
+::-webkit-input-placeholder {
+   font-style: italic;
+}
+:-moz-placeholder {
+   font-style: italic;  
+}
+::-moz-placeholder {
+   font-style: italic;  
+}
+:-ms-input-placeholder {  
+   font-style: italic; 
+}
