@@ -6,7 +6,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: mesano.darilo@gmail.com 
-    password: invalidpassword
+    password: darilodarilo
     properties:
       mail.smtp:
         auth: true
@@ -20,4 +20,4 @@ storage:
     folder: C:\\Users\\Nejc\\Development\\Projects\\GiftMixer\\files\\wish
   users:
     file: C:\\Users\\Nejc\\Development\\Projects\\GiftMixer\\files\\users.txt
-host.address.darilo: localhost:9000
+host.address.darilo: http://localhost:4200/darilo

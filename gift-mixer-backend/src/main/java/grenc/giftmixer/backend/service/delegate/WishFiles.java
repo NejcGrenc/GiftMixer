@@ -27,6 +27,7 @@ public class WishFiles {
 	public List<String> findAllWishFiles() {
 		try (Stream<Path> walk = Files.walk(Paths.get(wishPath))) {
 			List<String> result = walk.filter(Files::isRegularFile)
+					.filter(x -> x.getFileName().toString().endsWith(suffix))
 					.map(x -> x.getFileName().toString())
 					.map(x -> removeSuffix(x))
 					.collect(Collectors.toList());

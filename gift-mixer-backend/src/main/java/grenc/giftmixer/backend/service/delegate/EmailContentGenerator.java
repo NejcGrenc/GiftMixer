@@ -9,7 +9,7 @@ public class EmailContentGenerator {
 	private static final String contentPreword = "Izbran/a si bil/a kot skrivni božiček za osebo: %s!";
 	private static final String contentMain = "Ta oseba si je za Božič zaželela:";
 
-	private static final String newLine = "\n";
+	private static final String newLine = "<br />";
 	
 	public String generateSubject() {
 		return subject;

@@ -44,6 +44,10 @@ public class WishService {
     
     @RequestMapping(value = "/fetchWish", method = RequestMethod.POST)
     public RestResponse<String> fetchWish(@RequestBody String userName) {
+    	return fetchWish(userName, "\n");
+    }
+    
+    public RestResponse<String> fetchWish(String userName, String lineBreak) {
     	System.out.println("Processing '/fetchWish' request from user: " + userName);
     	
     	StringBuilder content = new StringBuilder();
@@ -51,7 +55,7 @@ public class WishService {
 	        String line;
 	        while ((line = br.readLine()) != null) {
 	        	content.append(line);
-	        	content.append("\n");
+	        	content.append(lineBreak);
 	        }
 	    	return RestResponse.success(content.toString());
 			

@@ -1,8 +1,12 @@
 package grenc.giftmixer.backend.service.provider;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,25 +34,27 @@ public class EmailService {
           return true;
     }
     
-    public Boolean sendInvitation(String receiverEmail, String content) {
-    	SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo(receiverEmail);
+    public Boolean sendInvitation(String receiverEmail, String content) throws MessagingException {
+    	MimeMessage mimeMessage = javaMailSender.createMimeMessage();    	
+    	MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
-        msg.setSubject(emailContentGenerator.generateSubject());
-        msg.setText(content);
+    	helper.setTo(receiverEmail);
+    	helper.setSubject(emailContentGenerator.generateSubject());
+    	helper.setText(content, true);
 
-        javaMailSender.send(msg);
+    	javaMailSender.send(mimeMessage);
         return true;
     }
     
-    public Boolean sendSingleWish(String receiverEmail, String wishHolder, String wishContent) {
-    	SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo(receiverEmail);
+    public Boolean sendSingleWish(String receiverEmail, String wishHolder, String wishContent) throws MessagingException {
+    	MimeMessage mimeMessage = javaMailSender.createMimeMessage();    	
+    	MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
-        msg.setSubject(emailContentGenerator.generateSubject());
-        msg.setText(emailContentGenerator.generateContent(wishHolder, wishContent));
+    	helper.setTo(receiverEmail);
+    	helper.setSubject(emailContentGenerator.generateSubject());
+    	helper.setText(emailContentGenerator.generateContent(wishHolder, wishContent), true);
 
-        javaMailSender.send(msg);
+    	javaMailSender.send(mimeMessage);
         return true;
     }
 }

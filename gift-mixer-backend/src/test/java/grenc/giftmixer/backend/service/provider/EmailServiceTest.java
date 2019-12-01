@@ -1,5 +1,7 @@
 package grenc.giftmixer.backend.service.provider;
 
+import javax.mail.MessagingException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -19,13 +21,13 @@ public class EmailServiceTest {
 	}
 	
 	@Test
-	public void noMatterWhatTheEmailIsSent() {
+	public void noMatterWhatTheEmailIsSent() throws MessagingException {
 		emailService.sendSingleWish("receiverEmail", "wishHolder", "wishContent");
 		Mockito.verify(emailService.javaMailSender).send(Mockito.any(SimpleMailMessage.class));
 	}
 	
 	@Test
-	public void noMatterWhatTheInvitationIsSent() {
+	public void noMatterWhatTheInvitationIsSent() throws MessagingException {
 		emailService.sendInvitation("receiverEmail", "content");
 		Mockito.verify(emailService.javaMailSender).send(Mockito.any(SimpleMailMessage.class));
 	}

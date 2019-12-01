@@ -2,6 +2,8 @@ package grenc.giftmixer.backend.service.provider;
 
 import java.util.Arrays;
 
+import javax.mail.MessagingException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -27,7 +29,7 @@ public class WishersReceiversDistributorTest {
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void shouldSendEmailsToEveryone() {
+	public void shouldSendEmailsToEveryone() throws MessagingException {
 		Mockito.when(distributor.wishFiles.findAllWishFiles()).thenReturn(Arrays.asList("a", "b", "c", "d", "e"));
 		Mockito.when(distributor.pairSorter.splitIntoPairs(Mockito.anyList()))
 				.thenReturn(Arrays.asList(new Pair("a", "c"), new Pair("b", "d"), new Pair("c", "e"), new Pair("d", "a"), new Pair("e", "b")));
@@ -41,7 +43,7 @@ public class WishersReceiversDistributorTest {
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void shouldSendInvitationsToEveryone() {
+	public void shouldSendInvitationsToEveryone() throws MessagingException {
 		Mockito.when(distributor.wishFiles.findAllWishFiles()).thenReturn(Arrays.asList("a", "b", "c", "d", "e"));
 		Mockito.when(distributor.pairSorter.splitIntoPairs(Mockito.anyList()))
 				.thenReturn(Arrays.asList(new Pair("a", "c"), new Pair("b", "d"), new Pair("c", "e"), new Pair("d", "a"), new Pair("e", "b")));

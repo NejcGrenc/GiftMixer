@@ -16,7 +16,9 @@ import grenc.giftmixer.backend.service.delegate.WishFiles;
 @RestController
 public class WishersReceiversDistributor {
 
-	private String credentialsEmail = "Povabljen/a si na sodelovanje v Božičnem žrebu. Izpolni svojo željo na tem naslovu (klikni na povezavo):\n\n";
+	private String credentialsEmail = "Povabljen/a si na sodelovanje v Božičnem žrebu. Izpolni svojo željo na tem naslovu (klikni na povezavo):"
+			+ "<br /><br />";
+	private String credentialsEmailEnd = "<br /><br />Ko bodo vsi izpolnili svoje želje, bodo le-te naključno razdeljene med skrivne božičke.";
 	
 	@Autowired
 	WishFiles wishFiles;
@@ -38,13 +40,15 @@ public class WishersReceiversDistributor {
 	
     @RequestMapping(value = "/distributeWishes", method = RequestMethod.POST)
 	public Boolean distributeWishes() {
+    	System.out.println("/distributeWishes");
     	try {
 			List<String> allUsers = wishFiles.findAllWishFiles();
 			List<Pair> wishPairs = pairSorter.splitIntoPairs(allUsers);
 			for (Pair pair : wishPairs) {
-				RestResponse<String> wish = wishService.fetchWish(pair.wisher);
+				RestResponse<String> wish = wishService.fetchWish(pair.wisher, "<br />");
 				String receiverEmail = userService.fetchEmailForUser(pair.receiver);
 				if (receiverEmail == null) {
+					System.out.println("Email will not be sent. Receiver is null.");
 					continue;
 				}
 				
@@ -60,17 +64,25 @@ public class WishersReceiversDistributor {
     
     @RequestMapping(value = "/distributeInvitations", method = RequestMethod.POST)
 	public Boolean distributeInvitations() {
+    	System.out.println("/distributeInvitations");
     	try {
-			List<String> allUsers = wishFiles.findAllWishFiles();
+			RestResponse<List<String>> response = userService.users();
+			if (! response.success) {
+				System.out.println("No users found");
+				return false;
+			}
+			
+			List<String> allUsers = response.value;
 			for (String userName : allUsers) {
 				String receiverEmail = userService.fetchEmailForUser(userName);
 				String credentials = userService.fetchCredentialsForUser(userName);
 				if (receiverEmail == null || credentials == null) {
+					System.out.println("Email will not be sent. Receiver [" + receiverEmail + "] or credentials [" + credentials + "] are null.");
 					continue;
 				}
 				
 				String privateAddress = hostAddressDarilo + "/" + credentials;
-				String emailContent = credentialsEmail + privateAddress;
+				String emailContent = credentialsEmail + "<a href=\"" + privateAddress + "\">" + privateAddress + "</a>" + credentialsEmailEnd;
 				emailService.sendInvitation(receiverEmail, emailContent);
 			}
 			return true;
