@@ -34,7 +34,7 @@ public class WishersReceiversDistributorTest {
 		Mockito.when(distributor.pairSorter.splitIntoPairs(Mockito.anyList()))
 				.thenReturn(Arrays.asList(new Pair("a", "c"), new Pair("b", "d"), new Pair("c", "e"), new Pair("d", "a"), new Pair("e", "b")));
 		Mockito.when(distributor.userService.fetchEmailForUser(Mockito.anyString())).thenReturn("email");
-		Mockito.when(distributor.wishService.fetchWish(Mockito.anyString())).thenReturn(RestResponse.success("wish"));
+		Mockito.when(distributor.wishService.fetchWish(Mockito.anyString(), Mockito.anyString())).thenReturn(RestResponse.success("wish"));
 
 		distributor.distributeWishes();
 		
@@ -44,9 +44,9 @@ public class WishersReceiversDistributorTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void shouldSendInvitationsToEveryone() throws MessagingException {
-		Mockito.when(distributor.wishFiles.findAllWishFiles()).thenReturn(Arrays.asList("a", "b", "c", "d", "e"));
 		Mockito.when(distributor.pairSorter.splitIntoPairs(Mockito.anyList()))
 				.thenReturn(Arrays.asList(new Pair("a", "c"), new Pair("b", "d"), new Pair("c", "e"), new Pair("d", "a"), new Pair("e", "b")));
+		Mockito.when(distributor.userService.users()).thenReturn(RestResponse.success(Arrays.asList("a", "b", "c", "d", "e")));
 		Mockito.when(distributor.userService.fetchEmailForUser(Mockito.anyString())).thenReturn("email");
 		Mockito.when(distributor.userService.fetchCredentialsForUser(Mockito.anyString())).thenReturn("cred");
 
