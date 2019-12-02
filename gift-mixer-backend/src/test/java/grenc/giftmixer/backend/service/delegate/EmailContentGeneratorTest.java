@@ -1,6 +1,7 @@
 package grenc.giftmixer.backend.service.delegate;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -15,9 +16,8 @@ public class EmailContentGeneratorTest {
 
 	@Test
 	public void shouldGenerateContent() {
-		assertEquals("\nIzbran/a si bil/a kot skrivni božiček za osebo: Arti!"
-					+ "\n\nTa oseba si je za Božič zaželela:"
-					+ "\nA big bone!", 
-					generator.generateContent("Arti", "A big bone!"));
+		String messageContent = generator.generateContent("Arti", "A big bone!");
+		assertTrue(messageContent.contains("Arti"));
+		assertTrue(messageContent.contains("A big bone!"));
 	}
 }

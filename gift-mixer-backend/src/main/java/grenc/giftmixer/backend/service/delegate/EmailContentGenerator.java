@@ -10,6 +10,15 @@ public class EmailContentGenerator {
 	private static final String subject = "Skrivni Božiček!";
 	private static final String contentPreword = "Izbran/a si bil/a kot skrivni božiček za osebo: %s!" + newLine + "(Okvirna cena daril je v okolici 50€)";
 	private static final String contentMain = "Ta oseba si je za Božič zaželela:";
+	
+	private static final String letterCore = "<h3>Dragi Božiček!</h3>" + 
+			"			<br />" + 
+			"			<p>Za Božič si letos želim:</p>" + 
+			"			%s" +
+			"			<br />" +
+			"           <p>Ter še kakšno manjše presenečenje!</p>" + 
+			"           <br />" + 
+			"			<p>Z najlepšimi željami, %s</p>";
 
 	
 	public String generateSubject() {
@@ -25,8 +34,9 @@ public class EmailContentGenerator {
 		content.append(newLine);
 		content.append(contentMain);
 		content.append(newLine);
-		content.append(wishContent);
-
+		content.append(String.format(letterCore, wishContent, receiver));
+		content.append(newLine);
+		
 		return content.toString();
 	}
 }
