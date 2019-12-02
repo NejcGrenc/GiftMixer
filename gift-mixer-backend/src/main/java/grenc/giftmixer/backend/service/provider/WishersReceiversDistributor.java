@@ -18,7 +18,10 @@ public class WishersReceiversDistributor {
 
 	private String credentialsEmail = "Povabljen/a si na sodelovanje v Božičnem žrebu. Izpolni svojo željo na tem naslovu (klikni na povezavo):"
 			+ "<br /><br />";
-	private String credentialsEmailEnd = "<br /><br />Ko bodo vsi izpolnili svoje želje, bodo le-te naključno razdeljene med skrivne božičke.";
+	private String credentialsEmailEnd = "<br /><br />"
+			+ "Skupna cena želja naj bo v okolici 50€.<br />"
+			+ "Prosim odpri to povezavo v Firefox ali Chromu na računalniku (ostalo morda ne bo delovalo pravilno)!<br />"
+			+ "Ko bodo vsi izpolnili svoje želje, bodo le-te naključno razdeljene med skrivne božičke.";
 	
 	@Autowired
 	WishFiles wishFiles;
