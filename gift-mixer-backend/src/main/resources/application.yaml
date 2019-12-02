@@ -1,3 +1,6 @@
+
+# Values 'xxxxx' need to be overwritten!
+
 server:
   port: 9000
   
@@ -5,8 +8,8 @@ spring:
   mail: 
     host: smtp.gmail.com
     port: 587
-    username: mesano.darilo@gmail.com 
-    password: darilodarilo
+    username: xxxxx@gmail.com 
+    password: xxxxx
     properties:
       mail.smtp:
         auth: true
@@ -17,7 +20,7 @@ spring:
   
 storage:
   wish:
-    folder: C:\\Users\\Nejc\\Development\\Projects\\GiftMixer\\files\\wish
+    folder: xxxxx
   users:
-    file: C:\\Users\\Nejc\\Development\\Projects\\GiftMixer\\files\\users.txt
+    file: xxxxx
 host.address.darilo: http://localhost:4200/darilo
