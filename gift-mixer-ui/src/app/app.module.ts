@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +11,9 @@ import { MissingComponent } from './missing/missing.component';
 import { RestServiceComponent } from './rest-service/rest-service.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { AdminComponent } from './admin/admin.component';
+import { InfoComponent } from './info/info.component';
+import { AuthenticationInterceptor } from './_security/authentication.interceptor';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,9 @@ import { MatButtonModule } from '@angular/material/button';
         
     DariloComponent,
     KoncanoComponent,
-    MissingComponent
+    MissingComponent,
+    AdminComponent,
+    InfoComponent
     
   ],
   imports: [
@@ -31,7 +36,13 @@ import { MatButtonModule } from '@angular/material/button';
     BrowserAnimationsModule
   ],
   providers: [
-    RestServiceComponent
+    RestServiceComponent,
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [
     AppComponent

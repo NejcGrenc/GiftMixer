@@ -13,6 +13,13 @@
   
   
   <dependencies>
+  
+    <dependency>
+        <groupId>secure-eye-client</groupId>
+	  		<artifactId>secure-eye-client</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter</artifactId>
@@ -36,6 +43,21 @@
 		    <version>1.10.19</version>
 		    <scope>test</scope>
     </dependency>
+    
+    <!-- Object - JSON mapping -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.9.8</version>
+    </dependency>
+    
+    <!-- Lombok -->
+    <dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <scope>provided</scope>
+          <version>1.18.16</version>
+      </dependency>
     
   </dependencies>
   

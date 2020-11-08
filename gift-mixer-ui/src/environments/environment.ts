@@ -4,7 +4,21 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:9000'
+
+  backendBaseUrl: 'http://localhost:9014/',
+
+  validationUrl: 'http://localhost:9010/validate',
+
+  loginUrl: 'http://localhost:4010/login',
+  logoutUrl: 'http://localhost:4010/logout',
+  loginReturnUrlParam: 'returnUrl',
+  loginGeneratedJwtParam: 'jwtToken',
+
+  // expiresAt: Thu Oct 03 14:42:22 CEST 2030,
+  useDevelopmentUser: true,
+  developmentUser: 'local-user',
+  developmentJWT: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsb2NhbC11c2VyIiwiZXhwIjoxOTE3MjYxNzQyLCJpYXQiOjE2MDE5MDE3NDJ9.PRljUVXSQoW4UoVzrPn7RSC-db05S_pfKEAjcAUarWzeKhHSmwv53Pt-LAQzXztnsE5ZoHdtu-ZmcFZdzgUfYw',
+
 };
 
 /*
