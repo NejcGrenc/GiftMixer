@@ -1,47 +1,34 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Darilo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
+<ng-container *ngIf="userVerified; then mainPage else errorPage"></ng-container>
 
-  <ng-container *ngIf="userVerified; then mainPage else errorPage"></ng-container>
+<ng-template #errorPage>
+    <app-missing></app-missing>
+</ng-template>
 
-  <ng-template #errorPage>
-      <app-missing></app-missing>
-  </ng-template>
-  
 
-  <ng-template #mainPage>
-  
-      <div id="scrollContainer">
-          <img src="assets/scroll.png" alt="" style="width:100%;">
-          <div id="writingArea">
-          
-				      <h1>Dragi Božiček!</h1>
-				      <br />
-				      <p>Za Božič si letos želim:</p>
-				      				      
-				      <textarea [(ngModel)]="wish" placeholder="Tu napiši svoje želje"></textarea>
-				      <br />
-              <p>Ter še kakšno manjše presenečenje!</p>
-              <br />
-				      <p>Z najlepšimi željami,</p>
-				      <p style="text-align: right; margin-right: 40px;">{{ userName }}</p>
-				      <br />
-		      </div>
-		      
-		      <img id="bellsImage" src="assets/bells.png" alt="">
-		      
-		      <button mat-button id="saveButton" type="submit" (click) = 'setWish()'>Shrani</button>
-		      
-      </div>
-			
-		  
-  </ng-template>
+<ng-template #mainPage>
 
-</body>
-</html>
+    <div id="scrollContainer">
+        <img src="assets/scroll.png" alt="" style="width:100%;">
+        <div id="writingArea">
+        
+            <h1>Dragi Božiček!</h1>
+            <br />
+            <p>Za Božič si letos želim:</p>
+                          
+            <textarea [(ngModel)]="wish" placeholder="Tu napiši svoje želje"></textarea>
+            <br />
+            <p>Ter še kakšno manjše presenečenje!</p>
+            <br />
+            <p>Z najlepšimi željami,</p>
+            <p style="text-align: right; margin-right: 40px;">{{ userName }}</p>
+            <br />
+        </div>
+        
+        <img id="bellsImage" src="assets/bells.png" alt="">
+        
+        <button mat-button id="saveButton" type="submit" (click) = 'setWish()'>Shrani</button>
+        
+    </div>
+    
+    
+</ng-template>
