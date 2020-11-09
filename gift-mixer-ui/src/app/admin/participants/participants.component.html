@@ -1,0 +1,125 @@
+
+<h2>Udeleženci</h2>
+
+<table mat-table [dataSource]="participantsDataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Ime </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> E-pošta </th>
+    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="sentConfirmationEmail">
+    <th mat-header-cell *matHeaderCellDef> Poslano sporočilo<br/>za potrditev e-pošte </th>
+    <td mat-cell *matCellDef="let element"> 
+      <mat-icon *ngIf="element.sentConfirmationEmail">check_circle_outline</mat-icon>
+      <mat-icon *ngIf="!element.sentConfirmationEmail">highlight_off</mat-icon>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="confirmedConfirmationEmail">
+    <th mat-header-cell *matHeaderCellDef> Potrjena e-pošta </th>
+    <td mat-cell *matCellDef="let element"> 
+      <mat-icon *ngIf="element.confirmedConfirmationEmail">check_circle_outline</mat-icon>
+      <mat-icon *ngIf="!element.confirmedConfirmationEmail">highlight_off</mat-icon>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="sentWishLink">
+    <th mat-header-cell *matHeaderCellDef> Poslana povezava<br/>za pismo želja</th>
+    <td mat-cell *matCellDef="let element"> 
+      <mat-icon *ngIf="element.sentWishLink">check_circle_outline</mat-icon>
+      <mat-icon *ngIf="!element.sentWishLink">highlight_off</mat-icon>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="confirmedRecievedWishLink">
+    <th mat-header-cell *matHeaderCellDef> Prejeta povezava<br/>za pismo želja</th>
+    <td mat-cell *matCellDef="let element"> 
+      <mat-icon *ngIf="element.confirmedRecievedWishLink">check_circle_outline</mat-icon>
+      <mat-icon *ngIf="!element.confirmedRecievedWishLink">highlight_off</mat-icon>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="wishMessageWritten">
+    <th mat-header-cell *matHeaderCellDef> Pismo želja napisano </th>
+    <td mat-cell *matCellDef="let element"> 
+      <mat-icon *ngIf="element.wishMessageWritten">check_circle_outline</mat-icon>
+      <mat-icon *ngIf="!element.wishMessageWritten">highlight_off</mat-icon>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="sentTargetGiftMessage">
+    <th mat-header-cell *matHeaderCellDef> Poslano pismo<br/>prejemnika darila</th>
+    <td mat-cell *matCellDef="let element"> 
+      <mat-icon *ngIf="element.sentTargetGiftMessage">check_circle_outline</mat-icon>
+      <mat-icon *ngIf="!element.sentTargetGiftMessage">highlight_off</mat-icon>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="confirmedRecievedTargetGiftMessage">
+    <th mat-header-cell *matHeaderCellDef> Prejeto pismo<br/>prejemnika darila</th>
+    <td mat-cell *matCellDef="let element"> 
+      <mat-icon *ngIf="element.confirmedRecievedTargetGiftMessage">check_circle_outline</mat-icon>
+      <mat-icon *ngIf="!element.confirmedRecievedTargetGiftMessage">highlight_off</mat-icon>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let element"> 
+      <button mat-raised-button class="icon-button" (click)="editParticipnatSetFormData(element)"><mat-icon>edit</mat-icon></button> 
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="send">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let element"> 
+      <button mat-raised-button class="icon-button" (click)="sendMailSingle(element)"><mat-icon>mail_outline</mat-icon></button> 
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="private">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let element"> 
+      <button mat-raised-button class="icon-button" (click)="viewPrivateData(element)"><mat-icon>visibility</mat-icon></button> 
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+<form id="participant-form" [formGroup]="participantForm">
+
+  <input type="hidden" formControlName="idFormControl">
+
+  <mat-form-field appearance="standard">
+    <mat-label>Ime</mat-label>
+    <input matInput placeholder="Ime" formControlName="nameFormControl">
+    <mat-error *ngIf="participantForm.get('nameFormControl').hasError('required')">
+      Ime je nujno
+    </mat-error>
+  </mat-form-field>
+  
+  <mat-form-field appearance="standard">
+    <mat-label>E-pošta</mat-label>
+    <input matInput placeholder="E-pošta" formControlName="emailFormControl">
+    <mat-error *ngIf="participantForm.get('emailFormControl').hasError('email') 
+                      && !participantForm.get('emailFormControl').hasError('required')">
+      E-poštni naslov ni veljaven
+    </mat-error>
+    <mat-error *ngIf="participantForm.get('emailFormControl').hasError('required')">
+      E-poštni naslov je nujen
+    </mat-error>
+  </mat-form-field>
+
+  <div *ngIf="! isEditEnabled">
+    <button mat-raised-button [disabled]="!participantForm.valid" (click)="submitCreateParticipant()"> Dodaj udeleženca </button>
+  </div>
+  <div *ngIf="isEditEnabled">
+    <button mat-raised-button [disabled]="!participantForm.valid" (click)="submitEditParticipant()"> Uredi udeleženca </button>
+    <button mat-raised-button (click)="submitRemoveParticipant()"> Odstrani udeleženca </button>
+    <button mat-raised-button (click)="cancelEditParticipant()"> Prekliči urejanje </button>
+  </div>
+  
+</form>  

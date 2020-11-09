@@ -22,7 +22,6 @@ export class AuthenticationGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
 
-    console.log('canActivate');
     // Request contains newly generated JWT token
     // This request is a redirect from the login service
     if (route.queryParams[environment.loginGeneratedJwtParam]) {
@@ -31,8 +30,6 @@ export class AuthenticationGuard implements CanActivate {
     }
 
     const jwtToken = this.authenticationService.authJwtToken;
-    console.log(jwtToken);
-
     if (! jwtToken) {
       this.redirectToLogin(state.url);
       return of(false);

@@ -7,11 +7,11 @@ import {environment} from '../../environments/environment';
 export class RestServiceComponent {
 
   constructor(private http: HttpClient) { }
-  
+
   send(path: string, data: any): Observable<boolean> {
     return this.http.post<boolean>(environment.backendBaseUrl + path, data);
   }
-  
+
   fetch<T>(path: string, data: any): Observable<RestResponse<T>> {
     return this.http.post<RestResponse<T>>(environment.backendBaseUrl + path, data);
   }
