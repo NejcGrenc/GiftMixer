@@ -94,13 +94,9 @@ export class DariloComponent implements OnInit {
     console.log("Getting wish for user:", this.userName);
 
     this.rest.fetch<string>("/fetchWish", this.userName).subscribe(
-      (response: RestResponse<string>)=>{
-        if (response.success) {
-          console.log(this.getWish_successMessage);
-          this.wish = response.value;
-        } else {
-          console.error(this.getWish_errorMessage);
-        }
+      (response: string)=>{
+        console.log(this.getWish_successMessage);
+          this.wish = response;
       },
       (error)=>{
         console.error(error);

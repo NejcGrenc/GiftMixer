@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  backendBaseUrl: 'http://localhost:9014/',
+  backendBaseUrl: 'http://localhost:9014',
 
   validationUrl: 'http://localhost:9010/validate',
 
@@ -17,7 +17,7 @@ export const environment = {
   // expiresAt: Thu Oct 03 14:42:22 CEST 2030,
   useDevelopmentUser: true,
   developmentUser: 'local-user',
-  developmentJWT: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsb2NhbC11c2VyIiwiZXhwIjoxOTE3MjYxNzQyLCJpYXQiOjE2MDE5MDE3NDJ9.PRljUVXSQoW4UoVzrPn7RSC-db05S_pfKEAjcAUarWzeKhHSmwv53Pt-LAQzXztnsE5ZoHdtu-ZmcFZdzgUfYw',
+  developmentJWT: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsb2NhbC11c2VyIiwiZXhwIjoxOTIwNzI1MzYwLCJpYXQiOjE2MDUzNjUzNjB9.hQpkEb4Et_di0w9uUMOzcRGjL8jh8xMxHdYiVOCEYdonN_knqh5RyUlavyGYcBZonbo4ykJR7O2Y7E-MSw0gzg',
 
 };
 

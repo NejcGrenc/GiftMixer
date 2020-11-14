@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthenticationService } from '../_security/authentication.service';
+import { AdminService } from './admin.service';
 import { GiftMixerAdmin } from './model/admin.model';
 import { Participant } from './model/participant.model';
 import { ParticipantsComponent } from './participants/participants.component';
@@ -21,11 +22,12 @@ export class AdminComponent implements OnInit, AfterViewInit {
   public participantsComponent: ParticipantsComponent;
 
   get participants(): Participant[] {
-    return (this.participantsComponent === undefined) ? [] : this.participantsComponent.participants;
+    return (this.participantsComponent === undefined || this.participantsComponent === null) ? [] : this.participantsComponent.participants;
   }
 
   constructor(
-    private authenticationService: AuthenticationService,
+    public authenticationService: AuthenticationService,
+    private adminService: AdminService,
     private changeDetector: ChangeDetectorRef,
     private dialog: MatDialog
   ) { }
@@ -34,7 +36,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     // Load admin data
     this.admin = new GiftMixerAdmin(123, 'Nastja', false, false, false, '', '', '');
-
+    const adminUsername = this.authenticationService.user;
+    this.adminService.loadAdmin(adminUsername).subscribe(admin => {
+      this.admin = admin;
+    });
   }
 
   ngAfterViewInit(): void {
@@ -44,9 +49,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   public logout() {
-    console.log(this.authenticationService.authJwtToken);
-
-    this.authenticationService.authJwtToken = null;
+    this.authenticationService.logout();
   }
 
 

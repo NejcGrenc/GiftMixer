@@ -12,8 +12,8 @@ export class RestServiceComponent {
     return this.http.post<boolean>(environment.backendBaseUrl + path, data);
   }
 
-  fetch<T>(path: string, data: any): Observable<RestResponse<T>> {
-    return this.http.post<RestResponse<T>>(environment.backendBaseUrl + path, data);
+  fetch<T>(path: string, data: any): Observable<T> {
+    return this.http.post<T>(environment.backendBaseUrl + path, data);
   }
 }
 

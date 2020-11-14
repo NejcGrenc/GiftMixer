@@ -27,15 +27,10 @@ export class KoncanoComponent implements OnInit {
 
   fetchUserAndWishData(): void {
     this.rest.fetch<string[]>("/users", null).subscribe(
-      (response: RestResponse<string[]>)=>{
-        if (response.success) {
-          console.log("Retrieved users: ", response);
-          this.allUsers = response.value;
-          this.calculateUserWishes();
-        } else {
-          console.error(this.badFetch_errorMessage);
-          alert(this.badFetch_errorMessage);
-        }
+      (response: string[])=>{
+        console.log("Retrieved users: ", response);
+        this.allUsers = response;
+        this.calculateUserWishes();
       },
       (error)=>{
         console.error(error);
@@ -43,15 +38,10 @@ export class KoncanoComponent implements OnInit {
       },
     ); 
     this.rest.fetch<string[]>("/wishList", null).subscribe(
-      (response: RestResponse<string[]>)=>{
-        if (response.success) {
-          console.log("Retrieved wishes: ", response);
-          this.wishesGiven = response.value;
+      (response: string[])=>{
+        console.log("Retrieved wishes: ", response);
+          this.wishesGiven = response;
           this.calculateUserWishes();
-        } else {
-          console.error(this.badFetch_errorMessage);
-          alert(this.badFetch_errorMessage);
-        }
       },
       (error)=>{
         console.error(error);
