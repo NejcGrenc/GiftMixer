@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RestServiceComponent, RestResponse } from '../rest-service/rest-service.component';
 import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-darilo',
@@ -22,9 +23,14 @@ export class DariloComponent implements OnInit {
   
   wish: string;
 
-  constructor(private rest: RestServiceComponent, private route: ActivatedRoute) { }
+  constructor(
+    private titleService: Title,
+    private rest: RestServiceComponent,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Darilo');
     this.route.params.subscribe(params => {
       let userIdCode = params['userIdCode'];
       this.verifyUser(userIdCode);

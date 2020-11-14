@@ -1,0 +1,41 @@
+
+<div class="logged-in">
+  <p>Prijavljen/a kot: <strong>{{admin.username}}</strong></p>
+  <button mat-raised-button (click)="logout()">Odjava</button>
+</div>
+
+
+<div class="margined">
+
+  <h1>Administracija</h1>
+
+  <app-participants [adminId]="admin.id"></app-participants>
+
+  <h2>Pošiljanje sporočil</h2>
+
+  <div id="group-mail-senders">
+    <div>
+      <!-- <mat-form-field>
+        <mat-label>Predloga: Potrdilno sporočilo</mat-label>
+        <textarea matInput
+                  id="template-validation"
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"></textarea>
+      </mat-form-field> -->
+      <button mat-raised-button [disabled]="admin.alreadySentAllEmailValidation" (click)="sendAllEmailValidation()"> 
+        <mat-icon>mail_outline</mat-icon> Pošlji vsem: Potrdilno sporočilo 
+      </button>
+    </div>
+    <div>
+      <button mat-raised-button [disabled]="admin.alreadySentAllWishLinks || !areAllMailValidated()" (click)="sendAllWishLinks()"> 
+        <mat-icon>mail_outline</mat-icon> Pošlji vsem: Povezava za pismo 
+      </button>
+    </div>
+    <div>
+      <button mat-raised-button [disabled]="admin.alreadySentAllTargetGiftMessages || !areAllLettersWritten()" (click)="sendAllTargetGiftMessages()">
+        <mat-icon>mail_outline</mat-icon> Pošlji vsem: Pismo prejemnika 
+      </button>
+    </div>
+  </div>
+
+</div>

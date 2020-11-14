@@ -3,7 +3,9 @@
 
 server:
   port: 9000
-  
+
+auth.jwt.secret: ZGV2X3NlY3JldA==  # Base64: dev_secret
+
 spring: 
   mail: 
     host: smtp.gmail.com
@@ -24,3 +26,4 @@ storage:
   users:
     file: xxxxx
 host.address.darilo: http://localhost:4200/darilo
+
