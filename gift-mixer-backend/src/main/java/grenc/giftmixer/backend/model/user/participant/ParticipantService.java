@@ -2,6 +2,7 @@ package grenc.giftmixer.backend.model.user.participant;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,9 @@ public class ParticipantService {
     	participant.setAdminId(adminId);
     	participant.setName(username);
     	participant.setEmail(email);
+    	
+    	participant.setPersonalCode(generateParticipantCode());
+    	
     	return participantRepository.saveAndFlush(participant);
 	}
 	
@@ -63,6 +67,9 @@ public class ParticipantService {
 	}
 	
 	
-	private String 
+	private String generateParticipantCode() {
+		String uuid = UUID.randomUUID().toString();
+		return uuid.replaceAll("-", "");
+	}
 
 }

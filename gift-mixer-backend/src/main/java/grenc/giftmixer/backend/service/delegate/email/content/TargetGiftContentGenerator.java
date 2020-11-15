@@ -1,9 +1,9 @@
-package grenc.giftmixer.backend.service.delegate;
+package grenc.giftmixer.backend.service.delegate.email.content;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmailContentGenerator {
+public class TargetGiftContentGenerator {
 
 	private static final String newLine = "<br />";
 	

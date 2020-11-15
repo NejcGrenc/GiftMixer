@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import grenc.giftmixer.backend.service.delegate.EmailContentGenerator;
+import grenc.giftmixer.backend.service.delegate.email.content.TargetGiftContentGenerator;
 
 public class EmailServiceTest {
 
@@ -18,7 +18,7 @@ public class EmailServiceTest {
 	
 	@Before
 	public void setup() {
-		emailService.emailContentGenerator = new EmailContentGenerator();
+		emailService.emailContentGenerator = new TargetGiftContentGenerator();
 		emailService.javaMailSender = Mockito.mock(JavaMailSender.class);
 		
 		Mockito.when(emailService.javaMailSender.createMimeMessage()).thenReturn(mimeMessage);

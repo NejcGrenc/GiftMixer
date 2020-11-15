@@ -16,7 +16,7 @@ import { EmailSenderPopupComponent } from './service/email-sender-popup/email-se
 })
 export class AdminComponent implements OnInit, AfterViewInit {
 
-  admin: GiftMixerAdmin;
+  admin: GiftMixerAdmin = null;
 
   @ViewChild(ParticipantsComponent, {static: false})
   public participantsComponent: ParticipantsComponent;
@@ -27,19 +27,26 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   constructor(
     public authenticationService: AuthenticationService,
-    private adminService: AdminService,
+    public adminService: AdminService,
     private changeDetector: ChangeDetectorRef,
     private dialog: MatDialog
-  ) { }
+  ) {
+
+    // Make sure that admin exists
+    // Load admin data
+    const adminUsername = this.authenticationService.user;
+    adminService.creteOrVerifyAdmin(adminUsername).subscribe(admin => {
+      this.admin = admin;
+    });
+  }
 
 
   ngOnInit() {
-    // Load admin data
-    this.admin = new GiftMixerAdmin(123, 'Nastja', false, false, false, '', '', '');
-    const adminUsername = this.authenticationService.user;
-    this.adminService.loadAdmin(adminUsername).subscribe(admin => {
-      this.admin = admin;
-    });
+    // // Load admin data
+    // const adminUsername = this.authenticationService.user;
+    // this.adminService.loadAdmin(adminUsername).subscribe(admin => {
+    //   this.admin = admin;
+    // });
   }
 
   ngAfterViewInit(): void {

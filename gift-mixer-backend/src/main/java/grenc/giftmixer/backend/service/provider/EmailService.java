@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import grenc.giftmixer.backend.service.delegate.EmailContentGenerator;
+import grenc.giftmixer.backend.service.delegate.email.content.TargetGiftContentGenerator;
 
 @RestController
 public class EmailService {
 	
 	@Autowired
-	EmailContentGenerator emailContentGenerator;
+	TargetGiftContentGenerator emailContentGenerator;
 
 	@Autowired
     JavaMailSender javaMailSender;
@@ -25,7 +25,7 @@ public class EmailService {
     @RequestMapping(value = "/emailTest", method = RequestMethod.POST)
 	public Boolean sample() {
     	  SimpleMailMessage msg = new SimpleMailMessage();
-          msg.setTo("n.grenc@j-it.at");
+          msg.setTo("nejc.grenc@gmail.com");
 
           msg.setSubject("Testing from Spring Boot");
           msg.setText("Hello World \n Spring Boot Email");

@@ -6,18 +6,21 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import grenc.giftmixer.backend.model.Pair;
+import grenc.giftmixer.backend.model.chain.GiverRecieverPair;
 
 @Component
 public class PairSorter {
 
-	public List<Pair> splitIntoPairs(List<String> listOfUsers) {
-		List<String> shuffeledList = new ArrayList<>(listOfUsers);
+	public List<GiverRecieverPair> splitIntoPairs(List<Long> listOfUsers) {
+		List<Long> shuffeledList = new ArrayList<>(listOfUsers);
 		Collections.shuffle(shuffeledList);
 		
-		List<Pair> pairs = new ArrayList<>();
+		List<GiverRecieverPair> pairs = new ArrayList<>();
 		for (int i = 0; i < shuffeledList.size(); i++) {
-			pairs.add(new Pair(shuffeledList.get(i), shuffeledList.get((i+1) % shuffeledList.size())));
+			GiverRecieverPair pair = new GiverRecieverPair();
+			pair.setGiverId(shuffeledList.get(i));
+			pair.setReceiverId(shuffeledList.get((i+1) % shuffeledList.size()));
+			pairs.add(pair);
 		}
 		return pairs;
 	}

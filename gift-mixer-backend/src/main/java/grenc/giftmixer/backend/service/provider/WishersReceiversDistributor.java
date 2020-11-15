@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import grenc.giftmixer.backend.model.Pair;
+import grenc.giftmixer.backend.model.chain.GiverRecieverPair;
 import grenc.giftmixer.backend.model.rest.RestResponse;
 import grenc.giftmixer.backend.service.delegate.PairSorter;
 import grenc.giftmixer.backend.service.delegate.WishFiles;
@@ -46,17 +46,17 @@ public class WishersReceiversDistributor {
     	System.out.println("/distributeWishes");
     	try {
 			List<String> allUsers = wishFiles.findAllWishFiles();
-			List<Pair> wishPairs = pairSorter.splitIntoPairs(allUsers);
-			for (Pair pair : wishPairs) {
-				RestResponse<String> wish = wishService.fetchWish(pair.wisher, "<br />");
-				String receiverEmail = userService.fetchEmailForUser(pair.receiver);
-				if (receiverEmail == null) {
-					System.out.println("Email will not be sent. Receiver is null.");
-					continue;
-				}
-				
-				emailService.sendSingleWish(receiverEmail, pair.wisher, wish.value);
-			}
+//			List<GiverRecieverPair> wishPairs = pairSorter.splitIntoPairs(allUsers);
+//			for (GiverRecieverPair pair : wishPairs) {
+//				RestResponse<String> wish = wishService.fetchWish(pair.wisher, "<br />");
+//				String receiverEmail = userService.fetchEmailForUser(pair.receiver);
+//				if (receiverEmail == null) {
+//					System.out.println("Email will not be sent. Receiver is null.");
+//					continue;
+//				}
+//				
+//				emailService.sendSingleWish(receiverEmail, pair.getReceiverId(), wish.value);
+//			}
 			return true;
 			
     	} catch (Exception e) {

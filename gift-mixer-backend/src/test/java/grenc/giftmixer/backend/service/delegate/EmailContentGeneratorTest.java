@@ -5,9 +5,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import grenc.giftmixer.backend.service.delegate.email.content.TargetGiftContentGenerator;
+
 public class EmailContentGeneratorTest {
 	
-	private EmailContentGenerator generator = new EmailContentGenerator();
+	private TargetGiftContentGenerator generator = new TargetGiftContentGenerator();
 	
 	@Test
 	public void shouldGenerateSubject() {

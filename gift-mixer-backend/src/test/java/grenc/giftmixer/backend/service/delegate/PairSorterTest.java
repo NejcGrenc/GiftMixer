@@ -13,7 +13,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import grenc.giftmixer.backend.model.Pair;
+import grenc.giftmixer.backend.model.chain.GiverRecieverPair;
 
 public class PairSorterTest {
 	
@@ -21,28 +21,28 @@ public class PairSorterTest {
 
 	@Test
 	public void shouldShuffle() {
-		List<String> original = Arrays.asList("a", "b", "c", "d", "e");
-		List<String> copy = new ArrayList<String>(original);
+		List<Long> original = Arrays.asList(100L, 101L, 102L, 103L, 104L);
+		List<Long> copy = new ArrayList<>(original);
 		Collections.shuffle(copy);
 		assertAreNotSameOrdered(original, copy);
 	}
 	
 	@Test
 	public void shouldCreatePairs() {
-		List<String> original = Arrays.asList("a", "b", "c", "d", "e");
-		List<Pair> pairs = sorter.splitIntoPairs(original);
+		List<Long> original = Arrays.asList(100L, 101L, 102L, 103L, 104L);
+		List<GiverRecieverPair> pairs = sorter.splitIntoPairs(original);
 		
-		Set<String> setOfReceivers = new HashSet<>();
-		Set<String> setOfWishers = new HashSet<>();
+		Set<Long> setOfGivers = new HashSet<>();
+		Set<Long> setOfReceivers = new HashSet<>();
 		
-		for (Pair pair : pairs) {
-			assertNotEquals(pair.receiver, pair.wisher);
-			setOfReceivers.add(pair.receiver);
-			setOfWishers.add(pair.wisher);
+		for (GiverRecieverPair pair : pairs) {
+			assertNotEquals(pair.getGiverId(), pair.getReceiverId());
+			setOfGivers.add(pair.getGiverId());
+			setOfReceivers.add(pair.getReceiverId());
 		}
 		
+		assertEquals(original.size(), setOfGivers.size());
 		assertEquals(original.size(), setOfReceivers.size());
-		assertEquals(original.size(), setOfWishers.size());
 	}
 	
 	

@@ -14,19 +14,12 @@ public class AdminService {
 	private AdminRepository adminRepository;
 	
 	public Admin currentAdmin() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication == null || authentication.getName() == null) {
-			throw new RuntimeException("Could not determine admin username from authentication. Bad authenticaion.");
-		}
-		String adminUsername = authentication.getName();
-		
+		String adminUsername = currentAdminUsername();
     	System.out.println("Fetching admin for username " + adminUsername);
 		Admin admin = findAdmin(adminUsername);
 		if (admin == null) {
-			System.out.println("Admin not found for username " + adminUsername + ". Creating new admin.");
-			admin = createNewAdmin(adminUsername);
+			System.out.println("Admin not found for username " + adminUsername + ".");
 		}
-		
 		return admin;
 	}
 	
@@ -43,11 +36,21 @@ public class AdminService {
 		return admins.get(0);
 	}
 	
-	public Admin createNewAdmin(String username) {
+	public Admin createNewAdmin() {
+		System.out.println("Creating new admin.");
+		String adminUsername = currentAdminUsername();
 		Admin newAdmin = new Admin();
-		newAdmin.setUsername(username);
+		newAdmin.setUsername(adminUsername);
 		newAdmin = adminRepository.save(newAdmin);
 		return newAdmin;
+	}
+	
+	private String currentAdminUsername() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null || authentication.getName() == null) {
+			throw new RuntimeException("Could not determine admin username from authentication. Bad authenticaion.");
+		}
+		return authentication.getName();
 	}
 
 }

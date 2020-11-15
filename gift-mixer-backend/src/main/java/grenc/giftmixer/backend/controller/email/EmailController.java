@@ -1,4 +1,4 @@
-package grenc.giftmixer.backend.controller.adminconsole;
+package grenc.giftmixer.backend.controller.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,16 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import grenc.giftmixer.backend.model.user.admin.Admin;
 import grenc.giftmixer.backend.model.user.admin.AdminService;
+import grenc.giftmixer.backend.service.provider.EmailService;
 
 @RestController
-public class AdminController {
+public class EmailController {
 
 	@Autowired
-	private AdminService adminService;
+	private EmailService emailService;
 	
-	@RequestMapping(value = "/admin", method = RequestMethod.POST)
-    public Admin admin(@RequestBody String adminUsername) {
-    	System.out.println("Processing '/admin' request");
-    	return adminService.currentAdmin();
+	@RequestMapping(value = "/email", method = RequestMethod.POST)
+    public void email() {
+    	System.out.println("Processing '/email' request");
+    	emailService.sample();
 	}
 }
