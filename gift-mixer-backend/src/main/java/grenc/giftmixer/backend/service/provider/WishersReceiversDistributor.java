@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import grenc.giftmixer.backend.controller.wish.WishController;
 import grenc.giftmixer.backend.model.chain.GiverRecieverPair;
-import grenc.giftmixer.backend.model.rest.RestResponse;
+import grenc.giftmixer.backend.service.EmailService;
 import grenc.giftmixer.backend.service.delegate.PairSorter;
 import grenc.giftmixer.backend.service.delegate.WishFiles;
 
@@ -27,10 +28,7 @@ public class WishersReceiversDistributor {
 	WishFiles wishFiles;
 	
 	@Autowired
-	WishService wishService;
-	
-	@Autowired
-	UserService userService;
+	WishController wishService;
 	
 	@Autowired
 	PairSorter pairSorter;
@@ -65,35 +63,35 @@ public class WishersReceiversDistributor {
     	}
 	}
     
-    @RequestMapping(value = "/distributeInvitations", method = RequestMethod.POST)
-	public Boolean distributeInvitations() {
-    	System.out.println("/distributeInvitations");
-    	try {
-			RestResponse<List<String>> response = userService.users();
-			if (! response.success) {
-				System.out.println("No users found");
-				return false;
-			}
-			
-			List<String> allUsers = response.value;
-			for (String userName : allUsers) {
-				String receiverEmail = userService.fetchEmailForUser(userName);
-				String credentials = userService.fetchCredentialsForUser(userName);
-				if (receiverEmail == null || credentials == null) {
-					System.out.println("Email will not be sent. Receiver [" + receiverEmail + "] or credentials [" + credentials + "] are null.");
-					continue;
-				}
-				
-				String privateAddress = hostAddressDarilo + "/" + credentials;
-				String emailContent = credentialsEmail + "<a href=\"" + privateAddress + "\">" + privateAddress + "</a>" + credentialsEmailEnd;
-				emailService.sendInvitation(receiverEmail, emailContent);
-			}
-			return true;
-			
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    		return false;
-    	}
-	}
+//    @RequestMapping(value = "/distributeInvitations", method = RequestMethod.POST)
+//	public Boolean distributeInvitations() {
+//    	System.out.println("/distributeInvitations");
+//    	try {
+//			RestResponse<List<String>> response = userService.users();
+//			if (! response.success) {
+//				System.out.println("No users found");
+//				return false;
+//			}
+//			
+//			List<String> allUsers = response.value;
+//			for (String userName : allUsers) {
+//				String receiverEmail = userService.fetchEmailForUser(userName);
+//				String credentials = userService.fetchCredentialsForUser(userName);
+//				if (receiverEmail == null || credentials == null) {
+//					System.out.println("Email will not be sent. Receiver [" + receiverEmail + "] or credentials [" + credentials + "] are null.");
+//					continue;
+//				}
+//				
+//				String privateAddress = hostAddressDarilo + "/" + credentials;
+//				String emailContent = credentialsEmail + "<a href=\"" + privateAddress + "\">" + privateAddress + "</a>" + credentialsEmailEnd;
+//				emailService.sendInvitation(receiverEmail, emailContent);
+//			}
+//			return true;
+//			
+//    	} catch (Exception e) {
+//    		e.printStackTrace();
+//    		return false;
+//    	}
+//	}
 
 }

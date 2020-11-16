@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import grenc.giftmixer.backend.model.user.admin.Admin;
 import grenc.giftmixer.backend.model.user.admin.AdminService;
-import grenc.giftmixer.backend.service.provider.EmailService;
+import grenc.giftmixer.backend.service.EmailService;
 
 @RestController
 public class EmailController {

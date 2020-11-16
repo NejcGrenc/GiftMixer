@@ -20,13 +20,13 @@
             <p>Ter še kakšno manjše presenečenje!</p>
             <br />
             <p>Z najlepšimi željami,</p>
-            <p style="text-align: right; margin-right: 40px;">{{ userName }}</p>
+            <p style="text-align: right; margin-right: 40px;">{{ participant.name }}</p>
             <br />
         </div>
         
         <img id="bellsImage" src="assets/bells.png" alt="">
         
-        <button mat-button id="saveButton" type="submit" (click) = 'setWish()'>Shrani</button>
+        <button mat-button id="saveButton" type="submit" (click)='saveWish()'>Shrani</button>
         
     </div>
     

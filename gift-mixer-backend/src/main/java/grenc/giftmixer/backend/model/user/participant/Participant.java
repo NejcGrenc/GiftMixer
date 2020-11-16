@@ -41,6 +41,6 @@ public class Participant {
 	private boolean confirmedRecievedTargetGiftMessage;
 	
 	@Column
-	private String personalCode;
+	private String code;
 
 }

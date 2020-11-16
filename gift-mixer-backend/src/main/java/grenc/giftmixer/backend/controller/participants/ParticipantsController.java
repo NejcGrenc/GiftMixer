@@ -4,14 +4,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import grenc.giftmixer.backend.controller.participants.model.NewParticipantRequest;
+import grenc.giftmixer.backend.controller.participants.model.ParticipantPrivateDataResponse;
 import grenc.giftmixer.backend.model.user.admin.Admin;
 import grenc.giftmixer.backend.model.user.admin.AdminService;
 import grenc.giftmixer.backend.model.user.participant.Participant;
@@ -69,6 +68,30 @@ public class ParticipantsController {
 		participantService.removeParticipant(removeParticipantId);
 		
     	System.out.println("Participant removed");
+	}
+	
+	
+	@RequestMapping(value = "/participantByCode", method = RequestMethod.POST)
+    public Participant participantByCode(@RequestBody String participantCode) {
+    	System.out.println("Processing '/participantByCode' request: " + participantCode);
+    	
+    	Participant participant = participantService.participantByCode(participantCode);
+		
+    	System.out.println("Participant retreved by code: " + participant);
+    	return participant;
+	}
+	
+	
+	@RequestMapping(value = "/participantPrivateData", method = RequestMethod.POST)
+    public ParticipantPrivateDataResponse participantPrivateData(@RequestBody long participantId) {
+    	System.out.println("Processing '/participantPrivateData' request: " + participantId);
+    	
+    	Participant participant = participantService.participantById(participantId);
+    	ParticipantPrivateDataResponse response = new ParticipantPrivateDataResponse();
+    	response.setCode(participant.getCode());
+		
+    	System.out.println("/participantPrivateData returned: " + response);
+    	return response;
 	}
 
 }

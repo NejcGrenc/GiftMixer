@@ -23,8 +23,7 @@ export class Participant {
 
 export class ParticipantCode {
   constructor(
-    public participantId: number,
-    public personalCode: string
+    public code: string
   ) { }
 }
 

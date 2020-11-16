@@ -20,6 +20,17 @@ public class ParticipantService {
     	return participantRepository.findByAdminId(admin.getId());
 	}
 	
+	public Participant participantById(long participantId) {
+    	System.out.println("Fetching participant by id " + participantId);
+    	return participantRepository.findById(participantId).orElse(null);
+	}
+	
+	public Participant participantByCode(String code) {
+    	System.out.println("Fetching participant by code " + code);
+    	return participantRepository.findByCode(code).orElse(null);
+	}
+	
+	
 	public Participant createParticipant(long adminId, String username, String email) {
     	System.out.println("Creating new participant username: " + username + ", email: " + email);
     	Participant participant = new Participant();
@@ -27,7 +38,7 @@ public class ParticipantService {
     	participant.setName(username);
     	participant.setEmail(email);
     	
-    	participant.setPersonalCode(generateParticipantCode());
+    	participant.setCode(generateParticipantCode());
     	
     	return participantRepository.saveAndFlush(participant);
 	}

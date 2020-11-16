@@ -1,4 +1,4 @@
-package grenc.giftmixer.backend.service.provider;
+package grenc.giftmixer.backend.service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;

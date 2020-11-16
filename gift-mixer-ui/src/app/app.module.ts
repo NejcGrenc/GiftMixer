@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DariloComponent } from './darilo/darilo.component';
 import { KoncanoComponent } from './koncano/koncano.component';
 import { MissingComponent } from './missing/missing.component';
 import { RestServiceComponent } from './rest-service/rest-service.component';
@@ -26,12 +25,14 @@ import { ParticipantsComponent } from './admin/participants/participants.compone
 import { PrivateDataPopupComponent } from './admin/participants/private-data-popup/private-data-popup.component';
 import { SingleMessagePopupComponent } from './admin/participants/single-message-popup/single-message-popup.component';
 import { EmailSenderPopupComponent } from './admin/service/email-sender-popup/email-sender-popup.component';
+import { PismoComponent } from './pismo/pismo.component';
+import { PismoPopupComponent } from './pismo/pismo-popup/pismo-popup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
 
-    DariloComponent,
+    PismoComponent,
     KoncanoComponent,
     MissingComponent,
     AdminComponent,
@@ -40,6 +41,7 @@ import { EmailSenderPopupComponent } from './admin/service/email-sender-popup/em
     PrivateDataPopupComponent,
     SingleMessagePopupComponent,
     EmailSenderPopupComponent,
+    PismoPopupComponent,
 
   ],
   imports: [
@@ -69,7 +71,8 @@ import { EmailSenderPopupComponent } from './admin/service/email-sender-popup/em
   entryComponents: [
     PrivateDataPopupComponent,
     SingleMessagePopupComponent,
-    EmailSenderPopupComponent
+    EmailSenderPopupComponent,
+    PismoPopupComponent
   ],
   bootstrap: [
     AppComponent

@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import grenc.giftmixer.backend.model.chain.GiverRecieverPair;
-import grenc.giftmixer.backend.model.rest.RestResponse;
 import grenc.giftmixer.backend.service.delegate.PairSorter;
 import grenc.giftmixer.backend.service.delegate.WishFiles;
 

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DariloComponent } from './darilo.component';
+import { PismoComponent } from './pismo.component';
 
 describe('DariloComponent', () => {
-  let component: DariloComponent;
-  let fixture: ComponentFixture<DariloComponent>;
+  let component: PismoComponent;
+  let fixture: ComponentFixture<PismoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DariloComponent ]
+      declarations: [ PismoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DariloComponent);
+    fixture = TestBed.createComponent(PismoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

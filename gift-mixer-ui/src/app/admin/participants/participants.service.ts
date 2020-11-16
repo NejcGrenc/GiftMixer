@@ -16,6 +16,10 @@ export class ParticipantsService {
     return this.rest.fetch<Participant[]>('/allParticipants', null);
   }
 
+  public fetchParticipantByCode(code: string): Observable<Participant> {
+    return this.rest.fetch<Participant>('/participantByCode', code);
+  }
+
   public newParticipant(name: string, email: string): Observable<Participant> {
     const newParticipantRequest = { name, email };
     return this.rest.fetch<Participant>('/newParticipant', newParticipantRequest);
