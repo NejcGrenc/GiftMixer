@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { KoncanoComponent } from './koncano/koncano.component';
 import { MissingComponent } from './missing/missing.component';
 import { RestServiceComponent } from './rest-service/rest-service.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -33,7 +32,6 @@ import { PismoPopupComponent } from './pismo/pismo-popup/pismo-popup.component';
     AppComponent,
 
     PismoComponent,
-    KoncanoComponent,
     MissingComponent,
     AdminComponent,
     InfoComponent,
