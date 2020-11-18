@@ -24,7 +24,7 @@ export class ParticipantsComponent implements OnInit {
         'sentConfirmationEmail', 'confirmedConfirmationEmail',
         'sentWishLink', 'confirmedRecievedWishLink',
         'wishMessageWritten',
-        'sentTargetGiftMessage', 'confirmedRecievedTargetGiftMessage',
+        'sentTargetGiftMessage', //'confirmedRecievedTargetGiftMessage',
         'edit', 'send', 'private'];
   participantsDataSource = new MatTableDataSource<Participant>([]);
 

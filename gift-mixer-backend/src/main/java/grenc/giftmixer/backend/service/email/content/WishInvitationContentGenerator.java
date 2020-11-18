@@ -1,9 +1,17 @@
-package grenc.giftmixer.backend.service.delegate.email.content;
+package grenc.giftmixer.backend.service.email.content;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import grenc.giftmixer.backend.model.user.participant.Participant;
 
 @Component
 public class WishInvitationContentGenerator {
+	
+	
+	@Value(value = "${host.address.wish}")
+	private String wishAddress;
+	
 
 	private static final String newLine = "<br />";
 	
@@ -30,5 +38,9 @@ public class WishInvitationContentGenerator {
 		StringBuffer content = new StringBuffer();
 		content.append(String.format(body, receiver, linkToWish, organizer, organizerEmail));
 		return content.toString();
+	}
+	
+	public String wishLink(Participant participant) {
+		return wishAddress + "/" + participant.getCode();
 	}
 }

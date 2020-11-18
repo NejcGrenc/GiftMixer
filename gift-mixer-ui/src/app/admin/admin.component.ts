@@ -1,12 +1,16 @@
+import { Chain } from './model/chain.model';
+import { RestServiceComponent } from './../rest-service/rest-service.component';
 import { AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AuthenticationService } from '../_security/authentication.service';
 import { AdminService } from './admin.service';
 import { GiftMixerAdmin } from './model/admin.model';
 import { Participant } from './model/participant.model';
 import { ParticipantsComponent } from './participants/participants.component';
-import { EmailSenderPopupComponent } from './service/email-sender-popup/email-sender-popup.component';
+import { ChainShowPopupComponent } from './chain-show-popup/chain-show-popup.component';
+import { EmailSenderPopupComponent } from './email-sender-popup/email-sender-popup.component';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -25,9 +29,12 @@ export class AdminComponent implements OnInit, AfterViewInit {
     return (this.participantsComponent === undefined || this.participantsComponent === null) ? [] : this.participantsComponent.participants;
   }
 
+  chain: Chain = null;
+
   constructor(
     public authenticationService: AuthenticationService,
     public adminService: AdminService,
+    private rest: RestServiceComponent,
     private changeDetector: ChangeDetectorRef,
     private dialog: MatDialog
   ) {
@@ -38,15 +45,12 @@ export class AdminComponent implements OnInit, AfterViewInit {
     adminService.creteOrVerifyAdmin(adminUsername).subscribe(admin => {
       this.admin = admin;
     });
+
+    // Load any existing chain data
+    this.loadChain();
   }
 
-
   ngOnInit() {
-    // // Load admin data
-    // const adminUsername = this.authenticationService.user;
-    // this.adminService.loadAdmin(adminUsername).subscribe(admin => {
-    //   this.admin = admin;
-    // });
   }
 
   ngAfterViewInit(): void {
@@ -60,6 +64,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
 
+
   public areAllMailValidated(): boolean {
     return this.participants.filter(x => !x.confirmedConfirmationEmail).length === 0;
   }
@@ -69,23 +74,63 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   public sendAllEmailValidation() {
-    this.openSendEmailsDialog('EmailValidation');
-    this.admin.alreadySentAllEmailValidation = true;
+    this.openSendEmailsDialog('EmailValidation').subscribe(sent => {
+      if (sent) {
+        this.admin.alreadySentAllEmailValidation = true;
+        this.updateAdmin();
+      }
+    });
   }
 
   public sendAllWishLinks() {
-    this.openSendEmailsDialog('WishLink');
-    this.admin.alreadySentAllWishLinks = true;
+    this.openSendEmailsDialog('WishLink').subscribe(sent => {
+      if (sent) {
+        this.admin.alreadySentAllWishLinks = true;
+        this.updateAdmin();
+      }
+    });
   }
 
   public sendAllTargetGiftMessages() {
-    this.openSendEmailsDialog('TargetGiftMessage');
-    this.admin.alreadySentAllTargetGiftMessages = true;
+    this.openSendEmailsDialog('TargetGiftMessage').subscribe(sent => {
+      if (sent) {
+        this.admin.alreadySentAllTargetGiftMessages = true;
+        this.updateAdmin();
+      }
+    });
   }
 
-  private openSendEmailsDialog(templateId: string) {
-    this.dialog.open(EmailSenderPopupComponent, {
-      data: {recipients: this.participants, templateId}
+  private openSendEmailsDialog(templateId: string): Observable<boolean> {
+    const dialogRef = this.dialog.open(EmailSenderPopupComponent, {
+      data: {recipients: this.participants, templateId},
+      disableClose: true
+    });
+    return dialogRef.afterClosed();
+  }
+
+  private updateAdmin() {
+    this.adminService.updateAdmin(this.admin).subscribe(updatedAdmin => {
+      this.admin = updatedAdmin;
+    });
+  }
+
+
+
+  makeChain() {
+    this.adminService.makeChain().subscribe(chain => {
+      this.chain = chain;
+    });
+  }
+
+  loadChain() {
+    this.adminService.loadChain().subscribe(chain => {
+      this.chain = chain;
+    });
+  }
+
+  showChain() {
+    this.dialog.open(ChainShowPopupComponent, {
+      data: {chain: this.chain}
     });
   }
 

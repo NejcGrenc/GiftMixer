@@ -1,11 +1,11 @@
+import { VerificationComponent } from './participant-pages/verification/verification.component';
 import { AdminComponent } from './admin/admin.component';
 import { InfoComponent } from './info/info.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { KoncanoComponent } from './koncano/koncano.component';
 import { MissingComponent } from './missing/missing.component';
 import { AuthenticationGuard } from './_security/authentication.guard';
-import { PismoComponent } from './pismo/pismo.component';
+import { PismoComponent } from './participant-pages/pismo/pismo.component';
 
 
 const routes: Routes = [
@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [AuthenticationGuard] },
 
   { path: 'pismo/:participantCode', component: PismoComponent },
-  { path: 'koncano', component: KoncanoComponent },
+  { path: 'potrditev/:participantCode', component: VerificationComponent },
   { path: '**', component: MissingComponent }
 
 ];

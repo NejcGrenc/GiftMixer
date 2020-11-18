@@ -1,3 +1,4 @@
+import { Chain } from './model/chain.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RestServiceComponent } from '../rest-service/rest-service.component';
@@ -21,14 +22,21 @@ export class AdminService {
     return this.rest.fetch<GiftMixerAdmin>('/admin', { username });
   }
 
-  sampleEmail(): void {
-    console.log('samope');
-    this.rest.fetch<void>('/email', null).subscribe();
+  updateAdmin(admin: GiftMixerAdmin): Observable<GiftMixerAdmin> {
+    return this.rest.fetch<GiftMixerAdmin>('/editAdmin', admin);
   }
 
-  makeChain(): void {
-    this.rest.fetch<any>('/chain', null).subscribe(a =>
-      console.log('Making chain', a));
+  makeChain(): Observable<Chain> {
+    return this.rest.fetch<Chain>('/makeChain', null);
+  }
+
+  loadChain(): Observable<Chain> {
+    return this.rest.fetch<Chain>('/chain', null);
+  }
+
+  sampleEmail() {
+    return this.rest.fetch<any>('/sendEmail_sample', null).subscribe();
+
   }
 
 }

@@ -1,4 +1,4 @@
-package grenc.giftmixer.backend.service.delegate.email.content;
+package grenc.giftmixer.backend.service.email.content;
 
 import org.springframework.stereotype.Component;
 

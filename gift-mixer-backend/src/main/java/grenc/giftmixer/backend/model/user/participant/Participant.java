@@ -37,8 +37,8 @@ public class Participant {
 	private boolean wishMessageWritten;
 	@Column
 	private boolean sentTargetGiftMessage;
-	@Column
-	private boolean confirmedRecievedTargetGiftMessage;
+//	@Column
+//	private boolean confirmedRecievedTargetGiftMessage;
 	
 	@Column
 	private String code;

@@ -1,11 +1,11 @@
 import { PismoPopupComponent } from './pismo-popup/pismo-popup.component';
 import { Component, OnInit, Input } from '@angular/core';
-import { RestServiceComponent, RestResponse } from '../rest-service/rest-service.component';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { ParticipantsService } from '../admin/participants/participants.service';
-import { Participant } from '../admin/model/participant.model';
 import { MatDialog } from '@angular/material/dialog';
+import { Participant } from 'src/app/admin/model/participant.model';
+import { ParticipantsService } from 'src/app/admin/participants/participants.service';
+import { RestServiceComponent } from 'src/app/rest-service/rest-service.component';
 
 @Component({
   selector: 'app-pismo',

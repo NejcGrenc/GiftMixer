@@ -14,7 +14,7 @@ import grenc.giftmixer.backend.service.delegate.WishFiles;
 
 public class WishersReceiversDistributorTest {
 
-	private WishersReceiversDistributor distributor = new WishersReceiversDistributor();
+//	private WishersReceiversDistributor distributor = new WishersReceiversDistributor();
 	
 //	@Before
 //	public void setup() {

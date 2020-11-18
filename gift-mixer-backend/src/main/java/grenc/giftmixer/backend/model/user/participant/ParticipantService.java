@@ -8,9 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import grenc.giftmixer.backend.model.user.admin.Admin;
+import grenc.giftmixer.backend.service.VerificationService;
 
 @Component
 public class ParticipantService {
+	
+	@Autowired
+	private VerificationService verificationService; 
 	
 	@Autowired
 	private ParticipantRepository participantRepository;
@@ -38,11 +42,14 @@ public class ParticipantService {
     	participant.setName(username);
     	participant.setEmail(email);
     	
-    	participant.setCode(generateParticipantCode());
+    	participant.setCode(verificationService.generateParticipantCode());
     	
     	return participantRepository.saveAndFlush(participant);
 	}
 	
+	
+	// This function simply checks if the participant already exists
+	// and then overwrites it
 	public Participant editParticipant(Participant editParticipant) {
     	System.out.println("Editing participant id: " + editParticipant.getId());
     	Optional<Participant> optionalParticipant = participantRepository.findById(editParticipant.getId());
@@ -50,19 +57,18 @@ public class ParticipantService {
         	System.out.println("WARN: No participant by id " + editParticipant.getId() + " could be found!");
         	return null;
     	}
-//    	Participant participant = optionalParticipant.get();
-//    	participant.setAdminId(editParticipant.getAdminId());
-//    	participant.setName(editParticipant.getName());
-//    	participant.setEmail(editParticipant.getEmail());
-//    	participant.setSentConfirmationEmail(editParticipant.isSentConfirmationEmail());
-//    	participant.setConfirmedConfirmationEmail(editParticipant.isConfirmedConfirmationEmail());
-//    	participant.setSentWishLink(editParticipant.isSentWishLink());
-//    	participant.setConfirmedRecievedWishLink(editParticipant.isConfirmedRecievedWishLink());
-//    	participant.setWishMessageWritten(editParticipant.isWishMessageWritten());
-//    	participant.setSentTargetGiftMessage(editParticipant.isSentTargetGiftMessage());
-//    	participant.setConfirmedRecievedTargetGiftMessage(editParticipant.isConfirmedRecievedTargetGiftMessage());
-//    	participant.setPersonalCode(editParticipant.getPersonalCode());
-
+		//    	Participant participant = optionalParticipant.get();
+		//    	participant.setAdminId(editParticipant.getAdminId());
+		//    	participant.setName(editParticipant.getName());
+		//    	participant.setEmail(editParticipant.getEmail());
+		//    	participant.setSentConfirmationEmail(editParticipant.isSentConfirmationEmail());
+		//    	participant.setConfirmedConfirmationEmail(editParticipant.isConfirmedConfirmationEmail());
+		//    	participant.setSentWishLink(editParticipant.isSentWishLink());
+		//    	participant.setConfirmedRecievedWishLink(editParticipant.isConfirmedRecievedWishLink());
+		//    	participant.setWishMessageWritten(editParticipant.isWishMessageWritten());
+		//    	participant.setSentTargetGiftMessage(editParticipant.isSentTargetGiftMessage());
+		//    	participant.setConfirmedRecievedTargetGiftMessage(editParticipant.isConfirmedRecievedTargetGiftMessage());
+		//    	participant.setPersonalCode(editParticipant.getPersonalCode());
 
     	return participantRepository.saveAndFlush(editParticipant);
 	}
@@ -75,12 +81,6 @@ public class ParticipantService {
         	return;
     	}
     	participantRepository.delete(optionalParticipant.get());
-	}
-	
-	
-	private String generateParticipantCode() {
-		String uuid = UUID.randomUUID().toString();
-		return uuid.replaceAll("-", "");
 	}
 
 }

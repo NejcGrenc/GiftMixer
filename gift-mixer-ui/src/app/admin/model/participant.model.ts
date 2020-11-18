@@ -9,7 +9,7 @@ export class Participant {
     public confirmedRecievedWishLink?: boolean,
     public wishMessageWritten?: boolean,
     public sentTargetGiftMessage?: boolean,
-    public confirmedRecievedTargetGiftMessage?: boolean
+    // public confirmedRecievedTargetGiftMessage?: boolean
   ) {
     sentConfirmationEmail = (sentConfirmationEmail !== undefined) ? sentConfirmationEmail : false;
     confirmedConfirmationEmail = (confirmedConfirmationEmail !== undefined) ? confirmedConfirmationEmail : false;
@@ -17,22 +17,12 @@ export class Participant {
     confirmedRecievedWishLink = (confirmedRecievedWishLink !== undefined) ? confirmedRecievedWishLink : false;
     wishMessageWritten = (wishMessageWritten !== undefined) ? wishMessageWritten : false;
     sentTargetGiftMessage = (sentTargetGiftMessage !== undefined) ? sentTargetGiftMessage : false;
-    confirmedRecievedTargetGiftMessage = (confirmedRecievedTargetGiftMessage !== undefined) ? confirmedRecievedTargetGiftMessage : false;
+    // confirmedRecievedTargetGiftMessage = (confirmedRecievedTargetGiftMessage !== undefined) ? confirmedRecievedTargetGiftMessage : false;
   }
 }
 
 export class ParticipantCode {
   constructor(
     public code: string
-  ) { }
-}
-
-export class LinkInChain {
-  constructor(
-    public participantId: number,
-    public recieverFrom: number,
-    public recieverFromName: string,
-    public giverTo: number,
-    public giverToName: string
   ) { }
 }

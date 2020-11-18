@@ -20,6 +20,9 @@ public class Admin {
 	private String username;
 	
 	@Column
+	private String email;
+	
+	@Column
 	private boolean alreadySentAllEmailValidation;
 	@Column
 	private boolean alreadySentAllWishLinks;

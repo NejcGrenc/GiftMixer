@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule  } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 import { AdminComponent } from './admin/admin.component';
@@ -23,9 +24,12 @@ import { AuthenticationInterceptor } from './_security/authentication.intercepto
 import { ParticipantsComponent } from './admin/participants/participants.component';
 import { PrivateDataPopupComponent } from './admin/participants/private-data-popup/private-data-popup.component';
 import { SingleMessagePopupComponent } from './admin/participants/single-message-popup/single-message-popup.component';
-import { EmailSenderPopupComponent } from './admin/service/email-sender-popup/email-sender-popup.component';
-import { PismoComponent } from './pismo/pismo.component';
-import { PismoPopupComponent } from './pismo/pismo-popup/pismo-popup.component';
+import { PismoComponent } from './participant-pages/pismo/pismo.component';
+import { PismoPopupComponent } from './participant-pages/pismo/pismo-popup/pismo-popup.component';
+import { VerificationComponent } from './participant-pages/verification/verification.component';
+import { ChainShowPopupComponent } from './admin/chain-show-popup/chain-show-popup.component';
+import { EmailSenderPopupComponent } from './admin/email-sender-popup/email-sender-popup.component';
+
 
 @NgModule({
   declarations: [
@@ -38,8 +42,10 @@ import { PismoPopupComponent } from './pismo/pismo-popup/pismo-popup.component';
     ParticipantsComponent,
     PrivateDataPopupComponent,
     SingleMessagePopupComponent,
-    EmailSenderPopupComponent,
     PismoPopupComponent,
+    VerificationComponent,
+    EmailSenderPopupComponent,
+    ChainShowPopupComponent,
 
   ],
   imports: [
@@ -52,6 +58,7 @@ import { PismoPopupComponent } from './pismo/pismo-popup/pismo-popup.component';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
 
     HttpClientModule,
     FormsModule,
@@ -70,7 +77,8 @@ import { PismoPopupComponent } from './pismo/pismo-popup/pismo-popup.component';
     PrivateDataPopupComponent,
     SingleMessagePopupComponent,
     EmailSenderPopupComponent,
-    PismoPopupComponent
+    PismoPopupComponent,
+    ChainShowPopupComponent,
   ],
   bootstrap: [
     AppComponent

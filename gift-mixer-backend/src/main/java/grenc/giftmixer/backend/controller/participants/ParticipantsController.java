@@ -15,9 +15,13 @@ import grenc.giftmixer.backend.model.user.admin.Admin;
 import grenc.giftmixer.backend.model.user.admin.AdminService;
 import grenc.giftmixer.backend.model.user.participant.Participant;
 import grenc.giftmixer.backend.model.user.participant.ParticipantService;
+import grenc.giftmixer.backend.service.VerificationService;
 
 @RestController
 public class ParticipantsController {
+	
+	@Autowired
+	private VerificationService verificationService;
 	
 	@Autowired
 	private AdminService adminService;
@@ -93,5 +97,16 @@ public class ParticipantsController {
     	System.out.println("/participantPrivateData returned: " + response);
     	return response;
 	}
+	
+	
+	@RequestMapping(value = "/verifyUser", method = RequestMethod.POST)
+    public void verifyUser(@RequestBody String participantCode) {
+    	System.out.println("Processing '/verifyUser' request: " + participantCode);
+    	
+    	Participant participant = verificationService.verifyUserByCode(participantCode);
+		
+    	System.out.println("Participant verified: " + participant);
+	}
+	
 
 }

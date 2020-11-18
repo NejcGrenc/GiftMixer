@@ -1,8 +1,8 @@
 import { temporaryAllocator } from '@angular/compiler/src/render3/view/util';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { EmailSenderPopupComponent } from '../../email-sender-popup/email-sender-popup.component';
 import { Participant } from '../../model/participant.model';
-import { EmailSenderPopupComponent } from '../../service/email-sender-popup/email-sender-popup.component';
 
 @Component({
   selector: 'app-single-message-popup',

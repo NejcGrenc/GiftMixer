@@ -30,4 +30,10 @@ public class AdminController {
     	System.out.println("Processing '/admin' request");
     	return adminService.currentAdmin();
 	}
+	
+	@RequestMapping(value = "/editAdmin", method = RequestMethod.POST)
+    public Admin editAdmin(@RequestBody Admin editAdmin) {
+    	System.out.println("Processing '/editAdmin' request");
+    	return adminService.editAdmin(editAdmin);
+	}
 }

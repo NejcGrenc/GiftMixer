@@ -52,5 +52,12 @@ public class AdminService {
 		}
 		return authentication.getName();
 	}
+	
+	public Admin editAdmin(Admin editAdmin) {
+		if (findAdmin(editAdmin.getUsername()) == null) {
+			return null;
+		}
+		return adminRepository.save(editAdmin);
+	}
 
 }
