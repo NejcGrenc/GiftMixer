@@ -65,7 +65,9 @@ export class ParticipantsComponent implements OnInit {
   public submitCreateParticipant() {
     const name = this.participantForm.get('nameFormControl').value;
     const email = this.participantForm.get('emailFormControl').value;
-
+    this.createParticipantWithNameAndEmail(name, email);
+  }
+  public createParticipantWithNameAndEmail(name: string, email: string) {
     this.participantsService.newParticipant(name, email).subscribe(newParticipant => {
       this.addParticipant(newParticipant);
       this.refreshParticipantTable();

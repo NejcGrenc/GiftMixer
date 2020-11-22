@@ -2,6 +2,7 @@ export class GiftMixerAdmin {
   constructor(
     public id: number,
     public username: string,
+    public email: string,
     public alreadySentAllEmailValidation: boolean,
     public alreadySentAllWishLinks: boolean,
     public alreadySentAllTargetGiftMessages: boolean,

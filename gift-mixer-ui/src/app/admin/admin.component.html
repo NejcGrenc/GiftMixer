@@ -11,6 +11,23 @@
 
     <h1>Administracija</h1>
 
+    <form id="admin-email-form" [formGroup]="adminEmailForm" *ngIf="!admin.email">
+
+      <mat-form-field appearance="standard">
+        <mat-label>Administratorjeva e-pošta</mat-label>
+        <input matInput placeholder="E-pošta" formControlName="emailFormControl">
+        <mat-error *ngIf="adminEmailForm.get('emailFormControl').hasError('email') 
+                          && !adminEmailForm.get('emailFormControl').hasError('required')">
+          E-poštni naslov ni veljaven
+        </mat-error>
+        <mat-error *ngIf="adminEmailForm.get('emailFormControl').hasError('required')">
+          E-poštni naslov je nujen
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button [disabled]="!adminEmailForm.valid" (click)="submitAdminEmail()"> Administratorjeva e-pošta </button>
+    </form>  
+    
+
     <app-participants [adminId]="admin.id"></app-participants>
 
     <br />

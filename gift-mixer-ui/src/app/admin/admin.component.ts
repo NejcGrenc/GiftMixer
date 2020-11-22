@@ -11,6 +11,7 @@ import { ParticipantsComponent } from './participants/participants.component';
 import { ChainShowPopupComponent } from './chain-show-popup/chain-show-popup.component';
 import { EmailSenderPopupComponent } from './email-sender-popup/email-sender-popup.component';
 import { Observable } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -21,6 +22,8 @@ import { Observable } from 'rxjs';
 export class AdminComponent implements OnInit, AfterViewInit {
 
   admin: GiftMixerAdmin = null;
+  adminEmailForm: FormGroup;
+
 
   @ViewChild(ParticipantsComponent, {static: false})
   public participantsComponent: ParticipantsComponent;
@@ -46,6 +49,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
       this.admin = admin;
     });
 
+    this.adminEmailForm = new FormGroup({
+      emailFormControl: new FormControl('', [Validators.required, Validators.email]),
+    });
+
     // Load any existing chain data
     this.loadChain();
   }
@@ -54,8 +61,6 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-
-
     this.changeDetector.detectChanges();
   }
 
@@ -63,6 +68,13 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.authenticationService.logout();
   }
 
+  public submitAdminEmail() {
+    const adminEmail = this.adminEmailForm.get('emailFormControl').value;
+    this.admin.email = adminEmail;
+    this.updateAdmin();
+
+    this.participantsComponent.createParticipantWithNameAndEmail(this.admin.username, this.admin.email);
+  }
 
 
   public areAllMailValidated(): boolean {
