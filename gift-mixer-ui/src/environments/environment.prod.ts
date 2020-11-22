@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
 
-  backendBaseUrl: 'https://grenc.eu:9014/',
+  backendBaseUrl: 'https://grenc.eu:9014',
 
   validationUrl: 'https://grenc.eu:9010/validate',
 
