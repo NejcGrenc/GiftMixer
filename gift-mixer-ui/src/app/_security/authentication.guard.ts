@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate, Router } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
@@ -17,7 +17,8 @@ export class AuthenticationGuard implements CanActivate {
 
   constructor(
     private httpClient: HttpClient,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
@@ -27,6 +28,11 @@ export class AuthenticationGuard implements CanActivate {
     if (route.queryParams[environment.loginGeneratedJwtParam]) {
       const newlyGeneratedJwtToken = route.queryParams[environment.loginGeneratedJwtParam];
       this.authenticationService.authJwtToken = newlyGeneratedJwtToken;
+
+      // Remove jwt query param
+      const queryParams = JSON.parse(JSON.stringify(route.queryParams));
+      queryParams[environment.loginGeneratedJwtParam] = null;
+      this.router.navigate([route.routeConfig.path], { queryParams });
     }
 
     const jwtToken = this.authenticationService.authJwtToken;
