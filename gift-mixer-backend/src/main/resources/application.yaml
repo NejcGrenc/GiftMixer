@@ -28,12 +28,10 @@ spring:
         timeout: 5000
         writetimeout: 5000
         starttls.enable: true
+        ssl.trust: smtp.gmail.com
   
-  
-storage:
-  wish:
-    folder: xxxxx
-  users:
-    file: xxxxx
-host.address.darilo: http://localhost:4204/darilo
+host:
+   address: 
+      verification: http://localhost:4014/potrditev
+      wish: http://localhost:4014/pismo
 
