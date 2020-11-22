@@ -9,6 +9,7 @@ import { PismoComponent } from './participant-pages/pismo/pismo.component';
 
 
 const routes: Routes = [
+  { path: '', component: InfoComponent },
   { path: 'info', component: InfoComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AuthenticationGuard] },
 

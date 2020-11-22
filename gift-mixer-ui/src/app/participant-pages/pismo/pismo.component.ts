@@ -1,16 +1,19 @@
 import { PismoPopupComponent } from './pismo-popup/pismo-popup.component';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { Participant } from 'src/app/admin/model/participant.model';
 import { ParticipantsService } from 'src/app/admin/participants/participants.service';
 import { RestServiceComponent } from 'src/app/rest-service/rest-service.component';
+import { HostListener } from '@angular/core';
+import { Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-pismo',
   templateUrl: './pismo.component.html',
-  styleUrls: ['./pismo.component.scss']
+  styleUrls: ['./pismo.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class PismoComponent implements OnInit {
 
@@ -37,7 +40,26 @@ export class PismoComponent implements OnInit {
     private route: ActivatedRoute,
     private participantsService: ParticipantsService,
     private dialog: MatDialog,
+    private renderer: Renderer2
   ) { }
+
+  private quill: ElementRef;
+  @ViewChild('quill', {static: false}) set content(content: ElementRef) {
+    console.log('try', content);
+    if (content) { // initially setter gets called with undefined
+        this.quill = content;
+    }
+ }
+
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove($event) {
+    const x = $event.clientX;
+    const y = $event.clientY;
+    if (this.quill) {
+      this.renderer.setStyle( this.quill.nativeElement, 'left', x + 'px');
+      this.renderer.setStyle( this.quill.nativeElement, 'top',  y + 'px');
+    }
+  }
 
   ngOnInit() {
     this.titleService.setTitle('Pismo');
@@ -50,6 +72,7 @@ export class PismoComponent implements OnInit {
         this.loadWish(participant.id);
       });
     });
+
   }
 
   saveWish(): void {
