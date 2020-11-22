@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 
 import grenc.giftmixer.backend.controller.wish.WishController;
-import grenc.giftmixer.backend.service.delegate.WishFiles;
+//import grenc.giftmixer.backend.service.delegate.WishFiles;
 
 public class WishServiceTest {
 	
