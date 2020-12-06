@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// Add a filter to validate the tokens with every request
 				.addFilterBefore(jwtValidationFilter, UsernamePasswordAuthenticationFilter.class)
 				
-				.authorizeRequests().antMatchers("/participantByCode","/verifyUser").permitAll()
+				.authorizeRequests().antMatchers("/participantByCode","/verifyUser","/saveWish","/loadWish").permitAll()
 				.and()
 				.authorizeRequests().anyRequest().authenticated()
 				.and()
