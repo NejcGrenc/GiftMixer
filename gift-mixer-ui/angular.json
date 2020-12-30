@@ -47,7 +47,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "gift-mixer:build"
+            "browserTarget": "gift-mixer:build",
+            "optimization": true
           },
           "configurations": {
             "production": {
