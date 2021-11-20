@@ -1,0 +1,30 @@
+<h1 class="title">Pari darovalec-prejemnik</h1>
+
+<p><strong>Opozorilo</strong></p>
+<p>
+  Pogled v izbrane pare krši pravila igre. <br />
+  Nadaljuj le, če je resnično potrebno. <br />
+  Če te zanimajo podatki le za specifično osebo <br />si raje poglej direktno njihove osebne podatke (gumb 'oko').
+</p>
+
+<button mat-raised-button *ngIf="privateDataHidden" (click)="onCloseClick()"> Prekliči </button>
+<button mat-raised-button *ngIf="privateDataHidden" (click)="privateDataHidden = false"> Nadaljuj </button>
+
+<br />
+<hr/>
+<br />
+
+<div></div>
+
+<div *ngIf="!privateDataHidden">
+
+  <div *ngIf="chain === null">Pari še niso ustvarjeni</div>
+
+  <div *ngIf="chain !== null">
+    <div *ngFor="let pair of chain.pairs">
+      <p>Udeleženec/ka "<strong>{{pair.giverName}}</strong>" bo podaril darilo udeležencu/ki "<strong>{{pair.receiverName}}</strong>"</p>
+    </div>
+  </div>
+  <br />
+  <button mat-raised-button (click)="onCloseClick()"> Zaključi </button>
+</div>
