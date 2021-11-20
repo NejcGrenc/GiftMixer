@@ -1,0 +1,41 @@
+<ng-container *ngIf="userVerified; then mainPage else errorPage"></ng-container>
+
+<ng-template #errorPage>
+    <app-missing></app-missing>
+</ng-template>
+
+
+<ng-template #mainPage>
+
+    <div id="all-page-remove-cursor"></div>
+
+    <div id="scrollContainer">
+        <img src="assets/scroll.png" alt="" style="width:100%;">
+        <div id="writingArea">
+
+            <div id="text-header">
+                <h1>Dragi Božiček!</h1>
+                <p>Za Božič si letos želim:</p>
+            </div>
+                          
+            <textarea [(ngModel)]="wish" placeholder="Tu napiši svoje želje"></textarea>
+
+            <div id="text-footer">
+                <p>Ter še kakšno manjše presenečenje!</p>
+                <p>Z najlepšimi željami,</p>
+                <p style="text-align: right; margin-right: 40px;">{{ participant.name }}</p>
+            </div>
+
+        </div>
+        
+        <img id="bellsImage" src="assets/bells.png" alt="">
+        
+        <button mat-raised-button id="saveButton" type="submit" (click)='saveWish()'>Shrani</button>
+        
+    </div>
+
+    <div #quill id="quill">
+        <img src="assets/quill.png" alt="">
+    </div>
+
+</ng-template>
