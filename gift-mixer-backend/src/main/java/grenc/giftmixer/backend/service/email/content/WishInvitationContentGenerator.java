@@ -26,7 +26,9 @@ public class WishInvitationContentGenerator {
 			"<br />" +
 			"<br />" +
 			"Skupna cena želja naj bo v okolici 50€. <br />" +
-			"Prosim odpri to povezavo v Firefox ali Chromu na računalniku (ostalo morda ne bo delovalo pravilno)! <br />" +
+			"Želje naj bodo jasne in z čim več spletnimi povezavami, ki povedo kje ali kako je mogoče željo izpolniti. <br />" + 
+			"Program zaenkrat ne podpira dodajanja slik, zato pa spletne povezave delujejo brez težav. <br />" +
+			"Prosim odpri to povezavo v Firefox ali Chromu na računalniku, če v tvojem trenutnem brskalniku ne deluje najbolje. <br />" +
 			"Ko bodo vsi izpolnili svoje želje, bodo le-te naključno razdeljene med skrivne božičke. <br />" +
 			"V primeru težav se obrni na svojega organizatorja/ico: %s (%s)";
 	
