@@ -21,19 +21,36 @@ spring:
   # jpa.properties.javax.persistence.schema-generation.scripts.create-target: target/hibernate-code-generation.sql
   # jpa.properties.javax.persistence.schema-generation.scripts.create-source: metadata
   
+  # Old GMail config
+  # mail: 
+  #   host: smtp.gmail.com
+  #   port: 587
+  #   username: xxxxx@gmail.com 
+  #   password: xxxxx
+  #   properties:
+  #     mail.smtp:
+  #       auth: true
+  #       connectiontimeout: 5000
+  #       timeout: 5000
+  #       writetimeout: 5000
+  #       starttls.enable: true
+  #       ssl.trust: smtp.gmail.com
+        
   mail: 
-    host: smtp.gmail.com
+    host: mail.hukot.net
     port: 587
-    username: xxxxx@gmail.com 
+    username: xxxxx@grenc.eu
     password: xxxxx
     properties:
-      mail.smtp:
-        auth: true
-        connectiontimeout: 5000
-        timeout: 5000
-        writetimeout: 5000
-        starttls.enable: true
-        ssl.trust: smtp.gmail.com
+      mail:
+        debug: true
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+          starttls.enable: true
+          ssl.trust: mail.hukot.net
   
 host:
    address: 
