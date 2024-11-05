@@ -1,11 +1,12 @@
-import { ParticipantsService } from './participants.service';
-import { SingleMessagePopupComponent } from './single-message-popup/single-message-popup.component';
-import { PrivateDataPopupComponent } from './private-data-popup/private-data-popup.component';
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { Participant } from '../model/participant.model';
+import {ParticipantsService} from './participants.service';
+import {SingleMessagePopupComponent} from './single-message-popup/single-message-popup.component';
+import {PrivateDataPopupComponent} from './private-data-popup/private-data-popup.component';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material/table';
+import {Participant} from '../model/participant.model';
+import {EmailSenderService} from '../email-sender-popup/email-sender.service';
 
 @Component({
   selector: 'app-participants',
@@ -20,12 +21,19 @@ export class ParticipantsComponent implements OnInit {
     return this.participantsDataSource.data;
   }
 
-  displayedColumns: string[] = ['name', 'email',
-        'sentConfirmationEmail', 'confirmedConfirmationEmail',
-        'sentWishLink', 'confirmedRecievedWishLink',
-        'wishMessageWritten',
-        'sentTargetGiftMessage', //'confirmedRecievedTargetGiftMessage',
-        'edit', 'send', 'private'];
+  displayedColumns: string[] = [
+    'name',
+    'email',
+    'sentConfirmationEmail',
+    'confirmedConfirmationEmail',
+    'sentWishLink',
+    'confirmedRecievedWishLink',
+    'wishMessageWritten',
+    'sentTargetGiftMessage', //'confirmedRecievedTargetGiftMessage',
+    'edit',
+    'send',
+    'private',
+    'testEmailAdmin'];
   participantsDataSource = new MatTableDataSource<Participant>([]);
 
   isEditEnabled = false;
@@ -34,8 +42,10 @@ export class ParticipantsComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private participantsService: ParticipantsService
-  ) { }
+    private participantsService: ParticipantsService,
+    private emailSenderService: EmailSenderService
+  ) {
+  }
 
   ngOnInit() {
     this.resetParticipantForm();
@@ -67,6 +77,7 @@ export class ParticipantsComponent implements OnInit {
     const email = this.participantForm.get('emailFormControl').value;
     this.createParticipantWithNameAndEmail(name, email);
   }
+
   public createParticipantWithNameAndEmail(name: string, email: string) {
     this.participantsService.newParticipant(name, email).subscribe(newParticipant => {
       this.addParticipant(newParticipant);
@@ -113,9 +124,11 @@ export class ParticipantsComponent implements OnInit {
   private findParticipantById(id: number): Participant {
     return this.participantsDataSource.data.find(x => x.id === id);
   }
+
   private addParticipant(participant: Participant) {
     this.participantsDataSource.data.push(participant);
   }
+
   private removeParticipant(participant: Participant) {
     this.participantsDataSource.data = this.participantsDataSource.data.filter(x => x !== participant);
   }
@@ -134,6 +147,13 @@ export class ParticipantsComponent implements OnInit {
   public viewPrivateData(participant: Participant) {
     this.dialog.open(PrivateDataPopupComponent, {
       data: {participant}
+    });
+  }
+
+  public sendTestEmail(participant: Participant) {
+    console.log('Sending test email to admin');
+    this.emailSenderService.sendTestEmail(participant).subscribe((sentMessages) => {
+      console.log(sentMessages);
     });
   }
 }

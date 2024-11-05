@@ -28,123 +28,127 @@ import grenc.giftmixer.backend.service.email.content.WishInvitationContentGenera
 @RestController
 public class EmailController {
 
-	@Autowired
-	private VerificationContentGenerator verificationContentGenerator;
-	@Autowired
-	private WishInvitationContentGenerator wishInvitationContentGenerator;
-	@Autowired
-	private TargetGiftContentGenerator targetGiftContentGenerator;
-	
-	@Autowired
-	private VerificationService verificationService;
-	
-	@Autowired
-	private ChainService chainService; 
-	@Autowired
-	private WishService wishService;
-	
-	@Autowired
-	private AdminService adminService;
-	@Autowired
-	private ParticipantService participantService;
-	
-	@Autowired
-	private EmailService emailService;
-	
-	@RequestMapping(value = "/sendEmail_sample", method = RequestMethod.POST)
-    public void email() {
-    	System.out.println("Processing '/email' request");
-    	emailService.sample();
-	}
-	
-	@RequestMapping(value = "/sendEmail_verification", method = RequestMethod.POST)
-	public int sendVerification(@RequestBody List<Long> participantIds) {
-		Admin admin = adminService.currentAdmin();
-		String subject = verificationContentGenerator.generateSubject();
-		int successfulMessages = 0;
-		
-		for (Long participantId : participantIds) {
-			Participant participant = participantService.participantById(participantId);
-			String verificationLink = verificationService.verificationLink(participant);
-			String content = verificationContentGenerator.generateContent(
-					participant.getName(), verificationLink, 
-					admin.getUsername(), admin.getEmail());
-			
-			try {
-				emailService.sendEmail(participant.getEmail(), subject, content);
-				
-				successfulMessages++;
-				participant.setSentConfirmationEmail(true);
-				participant = participantService.editParticipant(participant);
-				
-			} catch (MessagingException e) {
-				System.out.println("Failed to send message for: " + participant.getEmail());
-				e.printStackTrace();
-			}
-		}
-		return successfulMessages;
-	}
-	
-	@RequestMapping(value = "/sendEmail_wishInvitation", method = RequestMethod.POST)
-	public int wishInvitation(@RequestBody List<Long> participantIds) {
-		Admin admin = adminService.currentAdmin();
-		String subject = wishInvitationContentGenerator.generateSubject();
-		int successfulMessages = 0;
-		
-		for (Long participantId : participantIds) {
-			Participant participant = participantService.participantById(participantId);
-			String wishLink = wishInvitationContentGenerator.wishLink(participant);
-			String content = wishInvitationContentGenerator.generateContent(
-					participant.getName(), wishLink, 
-					admin.getUsername(), admin.getEmail());
-			
-			try {
-				emailService.sendEmail(participant.getEmail(), subject, content);
-				
-				successfulMessages++;
-				participant.setSentWishLink(true);
-				participant = participantService.editParticipant(participant);
-				
-			} catch (MessagingException e) {
-				System.out.println("Failed to send message for: " + participant.getEmail());
-				e.printStackTrace();
-			}
-		}
-		return successfulMessages;
-	}
-	
-	@RequestMapping(value = "/sendEmail_targetGift", method = RequestMethod.POST)
-	public int targetGift(@RequestBody List<Long> participantIds) {
-		Admin admin = adminService.currentAdmin();
-		String subject = targetGiftContentGenerator.generateSubject();
-		int successfulMessages = 0;
-		
-		Chain chain = chainService.findChain(admin.getId());
-		for (GiverRecieverPair pair : chain.getPairs()) {
-			for (Long participantId : participantIds) {
-				if (participantId == pair.getGiverId()) {
-					
-					Participant giver = participantService.participantById(participantId);
-					Participant receiver = participantService.participantById(pair.getReceiverId());
+  @Autowired
+  private VerificationContentGenerator verificationContentGenerator;
+  @Autowired
+  private WishInvitationContentGenerator wishInvitationContentGenerator;
+  @Autowired
+  private TargetGiftContentGenerator targetGiftContentGenerator;
 
-					Wish targetWish = wishService.fetchWish(pair.getReceiverId());
-					String wishContent = (targetWish != null) ? targetWish.getWishContent() : null;
-					String content = targetGiftContentGenerator.generateContent(receiver.getName(), wishContent);
-					
-					try {
-						emailService.sendEmail(giver.getEmail(), subject, content);
-						
-						successfulMessages++;
-						giver.setSentTargetGiftMessage(true);
-						giver = participantService.editParticipant(giver);
-						
-					} catch (MessagingException e) {
-						System.out.println("Failed to send message for: " + giver.getEmail());
-						e.printStackTrace();
-					}
-				}
-			}
+  @Autowired
+  private VerificationService verificationService;
+
+  @Autowired
+  private ChainService chainService;
+  @Autowired
+  private WishService wishService;
+
+  @Autowired
+  private AdminService adminService;
+  @Autowired
+  private ParticipantService participantService;
+
+  @Autowired
+  private EmailService emailService;
+
+  @RequestMapping(value = "/sendEmail_sample", method = RequestMethod.POST)
+  public void sampleEmail(@RequestBody Long participantId) {
+		Participant participant = participantService.participantById(participantId);
+		if (participant == null) {
+			System.out.println("CAnnot determine participant with id: " + participantId);
+			return;
 		}
-		return successfulMessages;
-	}
+    emailService.sample(participant.getEmail());
+  }
+
+  @RequestMapping(value = "/sendEmail_verification", method = RequestMethod.POST)
+  public int sendVerification(@RequestBody List<Long> participantIds) {
+    Admin admin = adminService.currentAdmin();
+    String subject = verificationContentGenerator.generateSubject();
+    int successfulMessages = 0;
+
+    for (Long participantId : participantIds) {
+      Participant participant = participantService.participantById(participantId);
+      String verificationLink = verificationService.verificationLink(participant);
+      String content = verificationContentGenerator.generateContent(
+          participant.getName(), verificationLink,
+          admin.getUsername(), admin.getEmail());
+
+      try {
+        emailService.sendEmail(participant.getEmail(), subject, content);
+
+        successfulMessages++;
+        participant.setSentConfirmationEmail(true);
+        participant = participantService.editParticipant(participant);
+
+      } catch (MessagingException e) {
+        System.out.println("Failed to send message for: " + participant.getEmail());
+        e.printStackTrace();
+      }
+    }
+    return successfulMessages;
+  }
+
+  @RequestMapping(value = "/sendEmail_wishInvitation", method = RequestMethod.POST)
+  public int wishInvitation(@RequestBody List<Long> participantIds) {
+    Admin admin = adminService.currentAdmin();
+    String subject = wishInvitationContentGenerator.generateSubject();
+    int successfulMessages = 0;
+
+    for (Long participantId : participantIds) {
+      Participant participant = participantService.participantById(participantId);
+      String wishLink = wishInvitationContentGenerator.wishLink(participant);
+      String content = wishInvitationContentGenerator.generateContent(
+          participant.getName(), wishLink,
+          admin.getUsername(), admin.getEmail());
+
+      try {
+        emailService.sendEmail(participant.getEmail(), subject, content);
+
+        successfulMessages++;
+        participant.setSentWishLink(true);
+        participant = participantService.editParticipant(participant);
+
+      } catch (MessagingException e) {
+        System.out.println("Failed to send message for: " + participant.getEmail());
+        e.printStackTrace();
+      }
+    }
+    return successfulMessages;
+  }
+
+  @RequestMapping(value = "/sendEmail_targetGift", method = RequestMethod.POST)
+  public int targetGift(@RequestBody List<Long> participantIds) {
+    Admin admin = adminService.currentAdmin();
+    String subject = targetGiftContentGenerator.generateSubject();
+    int successfulMessages = 0;
+
+    Chain chain = chainService.findChain(admin.getId());
+    for (GiverRecieverPair pair : chain.getPairs()) {
+      for (Long participantId : participantIds) {
+        if (participantId == pair.getGiverId()) {
+
+          Participant giver = participantService.participantById(participantId);
+          Participant receiver = participantService.participantById(pair.getReceiverId());
+
+          Wish targetWish = wishService.fetchWish(pair.getReceiverId());
+          String wishContent = (targetWish != null) ? targetWish.getWishContent() : null;
+          String content = targetGiftContentGenerator.generateContent(receiver.getName(), wishContent);
+
+          try {
+            emailService.sendEmail(giver.getEmail(), subject, content);
+
+            successfulMessages++;
+            giver.setSentTargetGiftMessage(true);
+            giver = participantService.editParticipant(giver);
+
+          } catch (MessagingException e) {
+            System.out.println("Failed to send message for: " + giver.getEmail());
+            e.printStackTrace();
+          }
+        }
+      }
+    }
+    return successfulMessages;
+  }
 }
