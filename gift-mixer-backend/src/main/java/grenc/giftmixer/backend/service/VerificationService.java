@@ -1,5 +1,6 @@
 package grenc.giftmixer.backend.service;
 
+import grenc.giftmixer.backend.service.delegate.ParticipantCodeService;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,11 @@ public class VerificationService {
 	
 	@Autowired
 	private ParticipantService participantService;
+	@Autowired
+	private ParticipantCodeService participantCodeService;
 	
 	public String generateParticipantCode() {
-		String uuid = UUID.randomUUID().toString();
-		return uuid.replaceAll("-", "");
+		return participantCodeService.generateParticipantCode();
 	}
 
 	public Participant verifyUserByCode(String code) {		

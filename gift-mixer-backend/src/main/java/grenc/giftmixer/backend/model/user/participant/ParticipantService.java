@@ -1,21 +1,18 @@
 package grenc.giftmixer.backend.model.user.participant;
 
+import grenc.giftmixer.backend.model.user.admin.Admin;
+import grenc.giftmixer.backend.service.delegate.ParticipantCodeService;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import grenc.giftmixer.backend.model.user.admin.Admin;
-import grenc.giftmixer.backend.service.VerificationService;
-
 @Component
 public class ParticipantService {
-	
+
 	@Autowired
-	private VerificationService verificationService; 
-	
+	private ParticipantCodeService participantCodeService;
+
 	@Autowired
 	private ParticipantRepository participantRepository;
 	
@@ -42,7 +39,7 @@ public class ParticipantService {
     	participant.setName(username);
     	participant.setEmail(email);
     	
-    	participant.setCode(verificationService.generateParticipantCode());
+    	participant.setCode(participantCodeService.generateParticipantCode());
     	
     	return participantRepository.saveAndFlush(participant);
 	}
