@@ -7,6 +7,9 @@ import {MatDialog} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
 import {Participant} from '../model/participant.model';
 import {EmailSenderService} from '../email-sender-popup/email-sender.service';
+import {
+  SingleTestMessagePopupComponent
+} from './single-test-message-popup/single-test-message-popup.component';
 
 @Component({
   selector: 'app-participants',
@@ -152,8 +155,8 @@ export class ParticipantsComponent implements OnInit {
 
   public sendTestEmail(participant: Participant) {
     console.log('Sending test email to admin');
-    this.emailSenderService.sendTestEmail(participant).subscribe((sentMessages) => {
-      console.log(sentMessages);
+    this.dialog.open(SingleTestMessagePopupComponent, {
+      data: {participant}
     });
   }
 }

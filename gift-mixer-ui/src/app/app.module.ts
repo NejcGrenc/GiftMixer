@@ -17,7 +17,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-
 import { AdminComponent } from './admin/admin.component';
 import { InfoComponent } from './info/info.component';
 import { AuthenticationInterceptor } from './_security/authentication.interceptor';
@@ -29,6 +28,9 @@ import { PismoPopupComponent } from './participant-pages/pismo/pismo-popup/pismo
 import { VerificationComponent } from './participant-pages/verification/verification.component';
 import { ChainShowPopupComponent } from './admin/chain-show-popup/chain-show-popup.component';
 import { EmailSenderPopupComponent } from './admin/email-sender-popup/email-sender-popup.component';
+import {
+  SingleTestMessagePopupComponent
+} from './admin/participants/single-test-message-popup/single-test-message-popup.component';
 
 
 @NgModule({
@@ -45,6 +47,7 @@ import { EmailSenderPopupComponent } from './admin/email-sender-popup/email-send
     PismoPopupComponent,
     VerificationComponent,
     EmailSenderPopupComponent,
+    SingleTestMessagePopupComponent,
     ChainShowPopupComponent,
 
   ],

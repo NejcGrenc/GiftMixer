@@ -1,0 +1,31 @@
+<div *ngIf="!loading && !sent">
+  <h1 class="title">Pošiljanje testnega sporočila</h1>
+
+  <p><strong>Prejemnik</strong><br />
+    {{participant.name}} ({{participant.email}})
+  </p>
+
+  <p>Oblika sporočila: {{templateId}}</p>
+
+  <br />
+  <p><strong>Opozorilo</strong></p>
+  <p>Ko je e-poštno sporočilo poslano, ga ni mogoče več preklicati</p>
+  <br />
+
+  <button mat-raised-button (click)="sendTestEmail()"> Pošilji </button>
+  <button mat-raised-button [mat-dialog-close]="false"> Prekliči </button>
+</div>
+
+<div *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="!loading && sent">
+  <h1 class="title" *ngIf="success()">Uspeh</h1>
+  <h1 class="title" *ngIf="! success()">Problem</h1>
+
+  <p>
+    Poslano sporočilo: {{sentMessages}} za {{participant.name}}
+  </p>
+  <button mat-raised-button [mat-dialog-close]="true"> Ok </button>
+</div>
