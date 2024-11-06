@@ -1,29 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body {
-  height: 100%; 
-}
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
 
-body { 
-  margin: 0; 
-  //  font-family: Roboto, "Helvetica Neue", sans-serif; 
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
 }
 
 body, p, h1, h2, h3, textarea {
-  font-family: Arial;
+  font-family: Arial, sans-serif;
 }
-
 
 // Make placeholders display in italic
-::-webkit-input-placeholder {
-   font-style: italic;
-}
+::-webkit-input-placeholder,
+:-ms-input-placeholder,
 :-moz-placeholder {
-   font-style: italic;  
-}
-::-moz-placeholder {
-   font-style: italic;  
-}
-:-ms-input-placeholder {  
-   font-style: italic; 
+   font-style: italic;
 }

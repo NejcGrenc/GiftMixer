@@ -73,13 +73,7 @@ import { EmailSenderPopupComponent } from './admin/email-sender-popup/email-send
       multi: true
     }
   ],
-  entryComponents: [
-    PrivateDataPopupComponent,
-    SingleMessagePopupComponent,
-    EmailSenderPopupComponent,
-    PismoPopupComponent,
-    ChainShowPopupComponent,
-  ],
+
   bootstrap: [
     AppComponent
   ]
