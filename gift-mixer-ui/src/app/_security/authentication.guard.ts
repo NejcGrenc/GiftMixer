@@ -25,14 +25,14 @@ export class AuthenticationGuard implements CanActivate {
 
     // Request contains newly generated JWT token
     // This request is a redirect from the login service
-    if (route.queryParams[environment.loginGeneratedJwtParam]) {
-      const newlyGeneratedJwtToken = route.queryParams[environment.loginGeneratedJwtParam];
+    const newlyGeneratedJwtToken = route.queryParams[environment.loginGeneratedJwtParam];
+    if (newlyGeneratedJwtToken) {
       this.authenticationService.authJwtToken = newlyGeneratedJwtToken;
 
       // Remove jwt query param
       const queryParams = JSON.parse(JSON.stringify(route.queryParams));
       queryParams[environment.loginGeneratedJwtParam] = null;
-      this.router.navigate([route.routeConfig.path], { queryParams });
+      this.router.navigate([route.routeConfig.path], {queryParams}).then();
     }
 
     const jwtToken = this.authenticationService.authJwtToken;
@@ -78,7 +78,7 @@ export class AuthenticationGuard implements CanActivate {
     }
   }
 
-  redirectToLogin(returnUrl: string) {
+  redirectToLogin(returnUrl: string): void {
     window.location.href = `${environment.loginUrl}?${environment.loginReturnUrlParam}=${window.location.origin}${returnUrl}`;
   }
 

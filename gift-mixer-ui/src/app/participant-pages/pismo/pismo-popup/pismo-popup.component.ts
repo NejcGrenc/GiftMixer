@@ -15,7 +15,7 @@ export class PismoPopupComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.success = this.data.success;
   }
 

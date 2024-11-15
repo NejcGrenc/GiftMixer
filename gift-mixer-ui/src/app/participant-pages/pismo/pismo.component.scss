@@ -25,7 +25,7 @@ p, textarea {
 #writingArea> #text-header {
   position: relative;
   width: 100%;
-  top: 0px;
+  top: 0;
 }
 
 #writingArea > textarea {
@@ -39,7 +39,7 @@ p, textarea {
 
 #writingArea> #text-footer {
   position: relative;
-  bottom: 0px;
+  bottom: 0;
   width: 100%;
 }
 
@@ -55,7 +55,7 @@ p, textarea {
   position: absolute;
   bottom: 12%;
   right: 15%;
-  
+
   background-color: #ff4d4d;
   font-style: italic;
   font-size: 17px;
@@ -89,6 +89,6 @@ p, textarea {
   & > img {
     display: block;
     width:  100%;
-    height: 100;
+    height: 100%;
   }
 }

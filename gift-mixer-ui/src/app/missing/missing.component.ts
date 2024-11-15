@@ -13,7 +13,7 @@ export class MissingComponent implements OnInit {
     private titleService: Title
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.titleService.setTitle('Darilo - napaka');
   }
 

@@ -1,8 +1,7 @@
-import { Participant } from './../model/participant.model';
+import { Participant } from '../model/participant.model';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RestServiceComponent } from 'src/app/rest-service/rest-service.component';
-import { AdminService } from '../admin.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -13,7 +12,6 @@ export class EmailSenderService {
   constructor(
     private rest: RestServiceComponent,
     public dialog: MatDialog,
-    public adminService: AdminService,
   ) { }
 
 

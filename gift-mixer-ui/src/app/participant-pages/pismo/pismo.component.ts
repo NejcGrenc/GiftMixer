@@ -1,13 +1,19 @@
 import { PismoPopupComponent } from './pismo-popup/pismo-popup.component';
-import { Component, OnInit, Input, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  Renderer2,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { Participant } from 'src/app/admin/model/participant.model';
 import { ParticipantsService } from 'src/app/admin/participants/participants.service';
 import { RestServiceComponent } from 'src/app/rest-service/rest-service.component';
-import { HostListener } from '@angular/core';
-import { Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-pismo',
@@ -52,7 +58,7 @@ export class PismoComponent implements OnInit {
  }
 
   @HostListener('document:mousemove', ['$event'])
-  onMouseMove($event) {
+  onMouseMove($event: MouseEvent): void {
     const x = $event.clientX;
     const y = $event.clientY;
     if (this.quill) {
@@ -61,7 +67,7 @@ export class PismoComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.titleService.setTitle('Pismo');
     this.route.params.subscribe(params => {
 
@@ -88,7 +94,7 @@ export class PismoComponent implements OnInit {
         console.log('Wish is saved');
         this.dialog.open(PismoPopupComponent, { data: {success: true} });
       },
-      (error) => {
+      (_) => {
         console.log('Wish is not saved');
         this.dialog.open(PismoPopupComponent, { data: {success: false} });
       },

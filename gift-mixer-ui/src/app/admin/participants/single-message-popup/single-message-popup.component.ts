@@ -1,6 +1,5 @@
-import { temporaryAllocator } from '@angular/compiler/src/render3/view/util';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EmailSenderPopupComponent } from '../../email-sender-popup/email-sender-popup.component';
 import { Participant } from '../../model/participant.model';
 
@@ -19,27 +18,26 @@ export class SingleMessagePopupComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
-
   ngOnInit(): void {
     this.participant = this.data.participant;
   }
 
-  sendSingleEmailValidation() {
+  sendSingleEmailValidation(): void {
     this.openSendEmailsDialog('EmailValidation');
     this.dialogRef.close();
   }
 
-  sendSingleWishLink() {
+  sendSingleWishLink(): void {
     this.openSendEmailsDialog('WishLink');
     this.dialogRef.close();
   }
 
-  sendSingleTargetGiftMessage() {
+  sendSingleTargetGiftMessage(): void {
     this.openSendEmailsDialog('TargetGiftMessage');
     this.dialogRef.close();
   }
 
-  openSendEmailsDialog(templateId: string) {
+  openSendEmailsDialog(templateId: string): void {
     this.dialog.open(EmailSenderPopupComponent, {
       data: {recipients: [this.participant], templateId}
     });
@@ -48,5 +46,4 @@ export class SingleMessagePopupComponent implements OnInit {
   onCloseClick(): void {
     this.dialogRef.close();
   }
-
 }

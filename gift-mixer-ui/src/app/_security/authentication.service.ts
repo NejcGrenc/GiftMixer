@@ -1,4 +1,4 @@
-﻿import { environment } from './../../environments/environment';
+﻿import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -49,13 +49,12 @@ export class AuthenticationService {
     }
   }
 
-  public logout() {
+  public logout(): void {
     this.authJwtToken = null;
     this.user = null;
 
+    // Redirect to logout endpoint
     const returnUrl = this.router.url;
-
-    // Redirect to logout
     window.location.href = `${environment.logoutUrl}?${environment.loginReturnUrlParam}=${window.location.origin}${returnUrl}`;
   }
 

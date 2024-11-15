@@ -1,7 +1,6 @@
-import { Chain } from './../model/chain.model';
+import { Chain } from '../model/chain.model';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Participant } from '../model/participant.model';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-chain-show-popup',
@@ -19,9 +18,8 @@ export class ChainShowPopupComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.chain = this.data.chain as Chain;
-    console.log("sc", this.chain);
   }
 
   onCloseClick(): void {

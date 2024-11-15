@@ -54,7 +54,7 @@ export class PrivateDataPopupComponent implements OnInit {
 
   navigateToWish(): void {
     this.dialogRef.close();
-    this.router.navigate(['/pismo/' + this.participantCode]);
+    this.router.navigate(['/pismo/' + this.participantCode]).then();
   }
 
   onCloseClick(): void {

@@ -24,7 +24,7 @@ export class VerificationComponent implements OnInit {
     private participantsService: ParticipantsService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.titleService.setTitle('Potrditev');
     this.route.params.subscribe(params => {
 

@@ -26,12 +26,12 @@ export class SingleTestMessagePopupComponent implements OnInit {
     private emailSenderService: EmailSenderService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.log(this.data);
     this.participant = this.data.participant;
   }
 
-  public sendTestEmail() {
+  public sendTestEmail(): void {
     console.log('sending email', this.templateId, this.participant);
     this.emailSenderService.sendTestEmail(this.participant).subscribe((sentMessages) => {
       this.openResults(sentMessages);
@@ -39,7 +39,7 @@ export class SingleTestMessagePopupComponent implements OnInit {
     this.loading = true;
   }
 
-  openResults(sentMessages: number) {
+  openResults(sentMessages: number): void {
     console.log('email results received', sentMessages);
     this.sentMessages = sentMessages;
     this.loading = false;

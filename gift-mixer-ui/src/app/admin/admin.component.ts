@@ -1,5 +1,5 @@
 import { Chain } from './model/chain.model';
-import { RestServiceComponent } from './../rest-service/rest-service.component';
+import { RestServiceComponent } from '../rest-service/rest-service.component';
 import { AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -57,18 +57,18 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.loadChain();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
     this.changeDetector.detectChanges();
   }
 
-  public logout() {
+  public logout(): void {
     this.authenticationService.logout();
   }
 
-  public submitAdminEmail() {
+  public submitAdminEmail(): void {
     const adminEmail = this.adminEmailForm.get('emailFormControl').value;
     this.admin.email = adminEmail;
     this.updateAdmin();
@@ -85,7 +85,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     return this.participants.filter(x => !x.confirmedRecievedWishLink).length === 0;
   }
 
-  public sendAllEmailValidation() {
+  public sendAllEmailValidation(): void {
     this.openSendEmailsDialog('EmailValidation').subscribe(sent => {
       if (sent) {
         this.admin.alreadySentAllEmailValidation = true;
@@ -94,7 +94,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     });
   }
 
-  public sendAllWishLinks() {
+  public sendAllWishLinks(): void {
     this.openSendEmailsDialog('WishLink').subscribe(sent => {
       if (sent) {
         this.admin.alreadySentAllWishLinks = true;
@@ -103,7 +103,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     });
   }
 
-  public sendAllTargetGiftMessages() {
+  public sendAllTargetGiftMessages(): void {
     this.openSendEmailsDialog('TargetGiftMessage').subscribe(sent => {
       if (sent) {
         this.admin.alreadySentAllTargetGiftMessages = true;
@@ -120,7 +120,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     return dialogRef.afterClosed();
   }
 
-  private updateAdmin() {
+  private updateAdmin(): void {
     this.adminService.updateAdmin(this.admin).subscribe(updatedAdmin => {
       this.admin = updatedAdmin;
     });
@@ -128,19 +128,19 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
 
 
-  makeChain() {
+  makeChain(): void {
     this.adminService.makeChain().subscribe(chain => {
       this.chain = chain;
     });
   }
 
-  loadChain() {
+  loadChain(): void {
     this.adminService.loadChain().subscribe(chain => {
       this.chain = chain;
     });
   }
 
-  showChain() {
+  showChain(): void {
     this.dialog.open(ChainShowPopupComponent, {
       data: {chain: this.chain}
     });

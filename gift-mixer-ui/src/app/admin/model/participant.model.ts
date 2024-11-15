@@ -3,22 +3,14 @@ export class Participant {
     public id: number,
     public name: string,
     public email: string,
-    public sentConfirmationEmail?: boolean,
-    public confirmedConfirmationEmail?: boolean,
-    public sentWishLink?: boolean,
-    public confirmedRecievedWishLink?: boolean,
-    public wishMessageWritten?: boolean,
-    public sentTargetGiftMessage?: boolean,
-    // public confirmedRecievedTargetGiftMessage?: boolean
-  ) {
-    sentConfirmationEmail = (sentConfirmationEmail !== undefined) ? sentConfirmationEmail : false;
-    confirmedConfirmationEmail = (confirmedConfirmationEmail !== undefined) ? confirmedConfirmationEmail : false;
-    sentWishLink = (sentWishLink !== undefined) ? sentWishLink : false;
-    confirmedRecievedWishLink = (confirmedRecievedWishLink !== undefined) ? confirmedRecievedWishLink : false;
-    wishMessageWritten = (wishMessageWritten !== undefined) ? wishMessageWritten : false;
-    sentTargetGiftMessage = (sentTargetGiftMessage !== undefined) ? sentTargetGiftMessage : false;
-    // confirmedRecievedTargetGiftMessage = (confirmedRecievedTargetGiftMessage !== undefined) ? confirmedRecievedTargetGiftMessage : false;
-  }
+    public sentConfirmationEmail: boolean = false,
+    public confirmedConfirmationEmail: boolean = false,
+    public sentWishLink: boolean = false,
+    public confirmedRecievedWishLink: boolean = false,
+    public wishMessageWritten: boolean = false,
+    public sentTargetGiftMessage: boolean = false,
+    // public confirmedRecievedTargetGiftMessage: boolean = false
+  ) { }
 }
 
 export class ParticipantCode {

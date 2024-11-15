@@ -26,12 +26,12 @@ export class EmailSenderPopupComponent implements OnInit {
     private emailSenderService: EmailSenderService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.recipients = this.data.recipients;
     this.templateId = this.data.templateId;
   }
 
-  public sendEmails() {
+  public sendEmails(): void {
     console.log('sending emails', this.templateId, this.recipients);
     switch (this.templateId) {
       case 'EmailValidation':
@@ -53,7 +53,7 @@ export class EmailSenderPopupComponent implements OnInit {
     this.loading = true;
   }
 
-  openResults(sentMessages: number) {
+  openResults(sentMessages: number): void {
     console.log('email results received', sentMessages);
     this.sentMessages = sentMessages;
     this.loading = false;

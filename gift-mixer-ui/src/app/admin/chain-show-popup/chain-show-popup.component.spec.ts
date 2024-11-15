@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChainShowPopupComponent } from './chain-show-popup.component';
 
@@ -6,12 +6,12 @@ describe('ChainShowPopupComponent', () => {
   let component: ChainShowPopupComponent;
   let fixture: ComponentFixture<ChainShowPopupComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ ChainShowPopupComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ChainShowPopupComponent);

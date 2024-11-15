@@ -10,10 +10,10 @@ export class InfoComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  loginAdmin() {
+  loginAdmin(): void {
     this.router.navigate(['admin']);
   }
 }
