@@ -34,9 +34,4 @@ export class AdminService {
     return this.rest.fetch<Chain>('/chain', null);
   }
 
-  sampleEmail() {
-    return this.rest.fetch<any>('/sendEmail_sample', null).subscribe();
-
-  }
-
 }
