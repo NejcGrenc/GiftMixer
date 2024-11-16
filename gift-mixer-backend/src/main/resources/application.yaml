@@ -14,7 +14,10 @@ spring:
     username: sa
     password: sa
   jpa.database-platform: org.hibernate.dialect.H2Dialect
-  h2.console.enabled: true
+  h2.console:
+    enabled: true
+    settings:
+      web-allow-others: true
   
   # This generates a sql file from all hibernate annotations
   # jpa.properties.javax.persistence.schema-generation.scripts.action: create

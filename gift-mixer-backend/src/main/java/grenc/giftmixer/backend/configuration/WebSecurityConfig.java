@@ -29,7 +29,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.csrf().disable()
 				
 				.cors().and()
-				
+
+				.authorizeRequests()
+				.antMatchers("/h2-console/**").permitAll()
+				.and()
+				.headers().frameOptions().disable() // Allow H2 console to run in a frame
+				.and()
+
 				// Add a filter to validate the tokens with every request
 				.addFilterBefore(jwtValidationFilter, UsernamePasswordAuthenticationFilter.class)
 				
