@@ -32,7 +32,11 @@ import {
   SingleTestMessagePopupComponent
 } from './admin/participants/single-test-message-popup/single-test-message-popup.component';
 import { QuillModule } from 'ngx-quill';
+import * as Emoji from 'quill-emoji';
+import Quill from 'quill';
 
+// Register the emoji module globally
+Quill.register('modules/emoji', Emoji);
 
 @NgModule({
   declarations: [
@@ -70,18 +74,20 @@ import { QuillModule } from 'ngx-quill';
     QuillModule.forRoot({
       modules: {
         toolbar: [
-          ['bold', 'italic', 'underline'],
-          [{ list: 'ordered' }, { list: 'bullet' }],
           [{ size: ['small', false, 'large', 'huge'] }],
-          [{ color: [] }],
           [{ font: [] }],
           [{ align: [] }],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['bold', 'italic', 'underline'],
+          [{ color: [] }],
+          ['emoji'],
           ['link', 'image'],
           ['clean']
-        ]
+        ],
+        'emoji-toolbar': true,
       },
       theme: 'snow',
-    })
+    }),
   ],
   providers: [
     RestServiceComponent,
