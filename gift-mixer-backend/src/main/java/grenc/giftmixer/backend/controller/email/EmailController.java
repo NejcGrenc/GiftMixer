@@ -1,5 +1,6 @@
 package grenc.giftmixer.backend.controller.email;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -55,10 +56,15 @@ public class EmailController {
   public void sampleEmail(@RequestBody Long participantId) {
 		Participant participant = participantService.participantById(participantId);
 		if (participant == null) {
-			System.out.println("CAnnot determine participant with id: " + participantId);
+			System.out.println("Cannot determine participant with id: " + participantId);
 			return;
 		}
-    emailService.sample(participant.getEmail());
+    try {
+      emailService.sample(participant.getEmail());
+    } catch (MessagingException e) {
+      System.out.println("Failed to send sample message for: " + participant.getEmail());
+      e.printStackTrace();
+    }
   }
 
   @RequestMapping(value = "/sendEmail_verification", method = RequestMethod.POST)
