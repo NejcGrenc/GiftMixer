@@ -50,12 +50,43 @@ export class PismoComponent implements OnInit {
   ) { }
 
   private quill: ElementRef;
-  @ViewChild('quill', {static: false}) set content(content: ElementRef) {
-    console.log('try', content);
-    if (content) { // initially setter gets called with undefined
-        this.quill = content;
+  private quillInputContainer: ElementRef;
+
+  @ViewChild('quill', {static: false}) set quillRef(ref: ElementRef) {
+    if (ref) {  // initially setter gets called with undefined
+      this.quill = ref;
     }
- }
+  }
+
+  @ViewChild('quillInputContainer', {static: false}) set quillInputContainerRef(ref: ElementRef) {
+    if (ref) {  // initially setter gets called with undefined
+      this.quillInputContainer = ref;
+
+      const isMobule = () => window.innerWidth <= 768;
+      if (isMobule()) {
+        this.quillInputContainer.nativeElement.classList.add('mobile');
+      }
+      window.addEventListener('resize', () => {
+        if (isMobule()) {
+          this.quillInputContainer.nativeElement.classList.add('mobile');
+        } else {
+          this.quillInputContainer.nativeElement.classList.remove('mobile');
+        }
+      });
+
+      this.quillInputContainer.nativeElement.addEventListener('focusin', function(): void {
+        this.classList.add('extended');
+      });
+      this.quillInputContainer.nativeElement.addEventListener('focusout', function(event: FocusEvent): void {
+        /* Check if the focus moved to a child element and is technically still inside */
+        const relatedTarget = event.relatedTarget;
+        if (relatedTarget && this.contains(relatedTarget)) {
+          return;
+        }
+        this.classList.remove('extended');
+      });
+    }
+  }
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove($event: MouseEvent): void {

@@ -31,6 +31,7 @@ import { EmailSenderPopupComponent } from './admin/email-sender-popup/email-send
 import {
   SingleTestMessagePopupComponent
 } from './admin/participants/single-test-message-popup/single-test-message-popup.component';
+import { QuillModule } from 'ngx-quill';
 
 
 @NgModule({
@@ -65,7 +66,22 @@ import {
 
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    QuillModule.forRoot({
+      modules: {
+        toolbar: [
+          ['bold', 'italic', 'underline'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          [{ size: ['small', false, 'large', 'huge'] }],
+          [{ color: [] }],
+          [{ font: [] }],
+          [{ align: [] }],
+          ['link', 'image'],
+          ['clean']
+        ]
+      },
+      theme: 'snow',
+    })
   ],
   providers: [
     RestServiceComponent,

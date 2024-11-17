@@ -1,10 +1,41 @@
+app-pismo {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 #scrollContainer {
   cursor: none !important;
+  position: relative;
 
-  position: absolute;
-  margin: 5% 25%;
-  left: 0;
-  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  max-width: 1400px;
+  margin: 24px;
+  box-sizing: border-box;
+
+  .mobile.extended {
+    position: fixed;
+    top : 10%;
+    left : 5%;
+    width : 90%;
+    height : 80%;
+    z-index : 1000;
+    background-color : #fff;
+  }
+
+  .mobile:not(.extended) .ql-toolbar {
+    display: none;
+  }
+
+  .mobile:not(.extended) .ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border-top: 1px solid #ccc;
+  }
 }
 
 #writingArea {
@@ -16,33 +47,41 @@
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  overflow: auto;
+
+  & p, textarea {
+    font-size: 17px;
+  }
+  & h1 {
+    padding-bottom: 1rem;
+  }
+
+  & > #text-header {
+    position: relative;
+    width: 100%;
+    top: 0;
+  }
+
+  & > #quill-input-container {
+    display: flex;
+    flex-grow: 1;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+  & > #quill-input-container > #quill-input {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  & > #text-footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
 }
-
-p, textarea {
-  font-size: 17px;
-}
-
-#writingArea> #text-header {
-  position: relative;
-  width: 100%;
-  top: 0;
-}
-
-#writingArea > textarea {
-  background: transparent;
-  border: none;
-  width: 100%;
-
-  box-sizing: border-box;
-  height: 100%;
-}
-
-#writingArea> #text-footer {
-  position: relative;
-  bottom: 0;
-  width: 100%;
-}
-
 
 #bellsImage {
   position: absolute;
@@ -90,5 +129,17 @@ p, textarea {
     display: block;
     width:  100%;
     height: 100%;
+  }
+}
+
+/* Hide for mobile devices */
+@media (pointer: coarse) {
+  #quill {
+    display: none;
+  }
+}
+@media (hover: none) {
+  #quill {
+    display: none;
   }
 }
