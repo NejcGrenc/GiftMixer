@@ -52,7 +52,7 @@
         <mat-icon *ngIf="admin.alreadySentAllEmailValidation" class="check-circle">check_circle_outline</mat-icon>
       </div>
       <div>
-          <h4>Vzorec {{templateValidation.subject}}</h4>
+          <h4>[Vzorec] {{templateValidation.subject}}</h4>
           <div class="template" [innerHTML]="templateValidation.content"></div>
       </div>
     </div>
@@ -68,7 +68,7 @@
         <mat-icon *ngIf="admin.alreadySentAllWishLinks" class="check-circle">check_circle_outline</mat-icon>
       </div>
       <div>
-        <h4>Vzorec {{templateWishInvitation.subject}}</h4>
+        <h4>[Vzorec] {{templateWishInvitation.subject}}</h4>
         <div class="template" [innerHTML]="templateWishInvitation.content"></div>
       </div>
     </div>
@@ -97,7 +97,7 @@
         <mat-icon *ngIf="admin.alreadySentAllTargetGiftMessages" class="check-circle">check_circle_outline</mat-icon>
       </div>
       <div>
-        <h4>Vzorec {{templateTargetGift.subject}}</h4>
+        <h4>[Vzorec] {{templateTargetGift.subject}}</h4>
         <div class="template" [innerHTML]="templateTargetGift.content"></div>
       </div>
     </div>

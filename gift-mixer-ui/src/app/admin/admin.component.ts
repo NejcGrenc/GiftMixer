@@ -25,9 +25,9 @@ export class AdminComponent implements OnInit, AfterViewInit {
   admin: GiftMixerAdmin = null;
   adminEmailForm: FormGroup;
 
-  templateValidation: TemplateModel;
-  templateWishInvitation: TemplateModel;
-  templateTargetGift: TemplateModel;
+  templateValidation: TemplateModel = new TemplateModel('', '');
+  templateWishInvitation: TemplateModel = new TemplateModel('', '');
+  templateTargetGift: TemplateModel = new TemplateModel('', '');
 
 
   @ViewChild(ParticipantsComponent, {static: false})

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class WishInvitationContentGenerator extends AbstractContentGenerator {
 
-	private static final String subject = "Skrivni Božiček!";
+	private static final String subject = "Skrivni Božiček! " + santaEmoji;
 	private static final String templateFile = "email-templates/wish-invitation.html";
 
 	public String generateSubject() {
@@ -19,6 +19,6 @@ public class WishInvitationContentGenerator extends AbstractContentGenerator {
 		String organizer = templateData[2];
 		String organizerEmail = templateData[3];
 		String templateContent = readFileContent(templateFile);
-		return String.format(templateContent, receiver, linkToWish, organizer, organizerEmail);
+		return String.format(templateContent, receiver, linkToWish, linkToWish, organizer, organizerEmail);
 	}
 }
