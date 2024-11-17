@@ -12,6 +12,7 @@ import { ChainShowPopupComponent } from './chain-show-popup/chain-show-popup.com
 import { EmailSenderPopupComponent } from './email-sender-popup/email-sender-popup.component';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TemplateModel } from './model/template.model';
 
 
 @Component({
@@ -23,6 +24,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   admin: GiftMixerAdmin = null;
   adminEmailForm: FormGroup;
+
+  templateValidation: TemplateModel;
+  templateWishInvitation: TemplateModel;
+  templateTargetGift: TemplateModel;
 
 
   @ViewChild(ParticipantsComponent, {static: false})
@@ -58,6 +63,9 @@ export class AdminComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.rest.get<TemplateModel>('/template_verification').subscribe(res => this.templateValidation = res);
+    this.rest.get<TemplateModel>('/template_wishInvitation').subscribe(res => this.templateWishInvitation = res);
+    this.rest.get<TemplateModel>('/template_targetGift').subscribe(res => this.templateTargetGift = res);
   }
 
   ngAfterViewInit(): void {

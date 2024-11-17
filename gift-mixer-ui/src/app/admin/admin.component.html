@@ -16,7 +16,7 @@
       <mat-form-field appearance="standard">
         <mat-label>Administratorjeva e-pošta</mat-label>
         <input matInput placeholder="E-pošta" formControlName="emailFormControl">
-        <mat-error *ngIf="adminEmailForm.get('emailFormControl').hasError('email') 
+        <mat-error *ngIf="adminEmailForm.get('emailFormControl').hasError('email')
                           && !adminEmailForm.get('emailFormControl').hasError('required')">
           E-poštni naslov ni veljaven
         </mat-error>
@@ -25,8 +25,8 @@
         </mat-error>
       </mat-form-field>
       <button mat-raised-button [disabled]="!adminEmailForm.valid" (click)="submitAdminEmail()"> Administratorjeva e-pošta </button>
-    </form>  
-    
+    </form>
+
 
     <app-participants [adminId]="admin.id"></app-participants>
 
@@ -46,29 +46,14 @@
                   #autosize="cdkTextareaAutosize"></textarea>
       </mat-form-field> -->
       <div>
-        <button mat-raised-button [class.already-done]="admin.alreadySentAllEmailValidation" (click)="sendAllEmailValidation()"> 
-          <mat-icon>mail_outline</mat-icon> Pošlji vsem: Potrdilno sporočilo 
+        <button mat-raised-button [class.already-done]="admin.alreadySentAllEmailValidation" (click)="sendAllEmailValidation()">
+          <mat-icon>mail_outline</mat-icon> Pošlji vsem: Potrdilno sporočilo
         </button>
         <mat-icon *ngIf="admin.alreadySentAllEmailValidation" class="check-circle">check_circle_outline</mat-icon>
       </div>
       <div>
-          <h4>Vzorec</h4>
-          <pre>
-  Pozdravljen/a, Nusa!
-
-  Organizator/ka: Nastja (nastja@email.si)
-  te je povabil/a na sodelovanje v igri Skrivni Božiček.
-
-  Če poznaš to osebo in želiš sodelovati v igri, prosimo klikni na naslednjo povezavo 
-  in s tem potrdi svoje sodelovanje in svoj e-poštni naslov.
-
-  [povezava]
-
-  Po potrditvi, prosimo počakaj na nadaljna navodila, ki bodo prišla na ta e-poštni nalov.
-
-  V kolikor imaš dodatna vprašanja ali pa želis spremeniti svoje ime ali e-poštni naslov
-  prosimo piši organizatorju/ki na naslov (nastja@email.si).
-          </pre>
+          <h4>Vzorec {{templateValidation.subject}}</h4>
+          <div class="template" [innerHTML]="templateValidation.content"></div>
       </div>
     </div>
 
@@ -76,27 +61,15 @@
     <h3>(2) Pošlji povezave za pisma želja</h3>
     <div class="half-pages">
       <div>
-        <button mat-raised-button [class.already-done]="admin.alreadySentAllWishLinks" (click)="sendAllWishLinks()"> 
-          <mat-icon>mail_outline</mat-icon> Pošlji vsem: Povezava za pismo 
+        <button mat-raised-button [class.already-done]="admin.alreadySentAllWishLinks" (click)="sendAllWishLinks()">
+          <mat-icon>mail_outline</mat-icon> Pošlji vsem: Povezava za pismo
         </button>
         <mat-icon *ngIf="!areAllMailValidated()" class="mark-circle">highlight_off</mat-icon>
         <mat-icon *ngIf="admin.alreadySentAllWishLinks" class="check-circle">check_circle_outline</mat-icon>
       </div>
       <div>
-        <h4>Vzorec</h4>
-        <pre>
-  Pozdravljen/a, Nusa!
-
-  Povabljen/a si na sodelovanje v Božičnem žrebu za igro Skrivni Božiček. 
-  Izpolni svojo željo na tem naslovu (klikni na povezavo): 
-
-  [povezava]
-
-  Skupna cena želja naj bo v okolici 50€. 
-  Prosim odpri to povezavo v Firefox ali Chromu na računalniku (ostalo morda ne bo delovalo pravilno)! 
-  Ko bodo vsi izpolnili svoje želje, bodo le-te naključno razdeljene med skrivne božičke. 
-  V primeru težav se obrni na svojega organizatorja/ico: Nastja (nastja@email.si)"
-        </pre>
+        <h4>Vzorec {{templateWishInvitation.subject}}</h4>
+        <div class="template" [innerHTML]="templateWishInvitation.content"></div>
       </div>
     </div>
 
@@ -118,35 +91,16 @@
 
       <div>
         <button mat-raised-button [class.already-done]="admin.alreadySentAllTargetGiftMessages" (click)="sendAllTargetGiftMessages()">
-          <mat-icon>mail_outline</mat-icon> Pošlji vsem: Pismo prejemnika 
+          <mat-icon>mail_outline</mat-icon> Pošlji vsem: Pismo prejemnika
         </button>
         <mat-icon *ngIf="!areAllLettersWritten()" class="mark-circle">highlight_off</mat-icon>
         <mat-icon *ngIf="admin.alreadySentAllTargetGiftMessages" class="check-circle">check_circle_outline</mat-icon>
       </div>
       <div>
-        <h4>Vzorec</h4>
-        <pre>
-  Izbran/a si bil/a kot skrivni božiček za osebo: Nastja!" 
-  (Okvirna cena daril je v okolici 50€)
-  
-  Ta oseba si je za Božič zaželela:
-  
-  Dragi Božiček!
-  Za Božič si letos želim:
-
-  [želja]
-  
-  Ter še kakšno manjše presenečenje!
-  Z najlepšimi željami, Nastja
-        </pre>
+        <h4>Vzorec {{templateTargetGift.subject}}</h4>
+        <div class="template" [innerHTML]="templateTargetGift.content"></div>
       </div>
     </div>
-
-    <!-- 
-    <button mat-raised-button (click)="adminService.sampleEmail()">
-      <mat-icon>mail_outline</mat-icon> Pošlji Samlpe 
-    </button>
-     -->
 
   </div>
 

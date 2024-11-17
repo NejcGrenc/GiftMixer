@@ -1,42 +1,22 @@
 package grenc.giftmixer.backend.service.email.content;
 
+import javax.mail.MessagingException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TargetGiftContentGenerator {
+public class TargetGiftContentGenerator extends AbstractContentGenerator {
 
-	private static final String newLine = "<br />";
-	
-	private static final String subject = "Skrivni Božiček!";
-	private static final String contentPreword = "Izbran/a si bil/a kot skrivni božiček za osebo: %s!" + newLine + "(Okvirna cena daril je v okolici 50€)";
-	private static final String contentMain = "Ta oseba si je za Božič zaželela:";
-	
-	private static final String letterCore = "<h3>Dragi Božiček!</h3>" + 
-			"			<br />" + 
-			"			<p>Za Božič si letos želim:</p>" + 
-			"			%s" +
-			"			<br />" +
-			"           <p>Ter še kakšno manjše presenečenje!</p>" + 
-			"           <br />" + 
-			"			<p>Z najlepšimi željami, %s</p>";
+	private static final String subject = "Skrivni Božiček! " + santaEmoji;
+	private static final String templateFile = "email-templates/target-gift.html";
 
-	
 	public String generateSubject() {
 		return subject;
 	}
 	
-	public String generateContent(String receiver, String wishContent) {
-		StringBuffer content = new StringBuffer();
-		
-		content.append(newLine);
-		content.append(String.format(contentPreword, receiver));
-		content.append(newLine);
-		content.append(newLine);
-		content.append(contentMain);
-		content.append(newLine);
-		content.append(String.format(letterCore, wishContent, receiver));
-		content.append(newLine);
-		
-		return content.toString();
+	public String generateContent(String... templateData) throws MessagingException  {
+		String receiver = templateData[0];
+		String wishContent = templateData[1];
+		String templateContent = readFileContent(templateFile);
+		return String.format(templateContent, receiver, wishContent, receiver);
 	}
 }

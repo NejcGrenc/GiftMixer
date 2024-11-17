@@ -34,13 +34,6 @@ public class EmailService {
   @Autowired
   private JavaMailSender javaMailSender;
 
-  public Boolean sample(String receiverEmail) throws MessagingException {
-    String subject = "Testiranje Skrivnega Božička \uD83C\uDF85";
-    String htmlContent = readFileContent("sampleEmail.html");
-    sendEmail(receiverEmail, subject, htmlContent);
-    return true;
-  }
-
   public Boolean sendEmail(String receiverEmail, String subject, String rawContent) throws MessagingException {
     MimeMessage mimeMessage = javaMailSender.createMimeMessage();
     MimeMessageHelper msgHelper = new MimeMessageHelper(mimeMessage, true, "utf-8");

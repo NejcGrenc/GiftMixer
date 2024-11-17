@@ -60,3 +60,11 @@ host:
       verification: http://localhost:4014/potrditev
       wish: http://localhost:4014/pismo
 
+template-data:
+  admin: Kekec
+  admin-email: kekec@hosta.com
+  giver: Rožle
+  giver-email: rozle@hosta.com
+  receiver: Mojca
+  receiver-email: mojca@hosta.com
+  wish: <p>Mir na svetu!</p>

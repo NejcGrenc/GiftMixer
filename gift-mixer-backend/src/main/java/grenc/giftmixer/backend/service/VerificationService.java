@@ -18,12 +18,6 @@ public class VerificationService {
 	
 	@Autowired
 	private ParticipantService participantService;
-	@Autowired
-	private ParticipantCodeService participantCodeService;
-	
-	public String generateParticipantCode() {
-		return participantCodeService.generateParticipantCode();
-	}
 
 	public Participant verifyUserByCode(String code) {		
 		Participant participant = participantService.participantByCode(code);
@@ -36,6 +30,10 @@ public class VerificationService {
 	
 	public String verificationLink(Participant participant) {
 		return verificationAddress + "/" + participant.getCode();
+	}
+
+	public String verificationLink(String participantCode) {
+		return verificationAddress + "/" + participantCode;
 	}
 	
 }

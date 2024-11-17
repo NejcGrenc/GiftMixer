@@ -1,16 +1,5 @@
 package grenc.giftmixer.backend.controller.email;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.mail.MessagingException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import grenc.giftmixer.backend.model.chain.Chain;
 import grenc.giftmixer.backend.model.chain.ChainService;
 import grenc.giftmixer.backend.model.chain.GiverRecieverPair;
@@ -22,13 +11,24 @@ import grenc.giftmixer.backend.model.wish.Wish;
 import grenc.giftmixer.backend.model.wish.WishService;
 import grenc.giftmixer.backend.service.VerificationService;
 import grenc.giftmixer.backend.service.email.EmailService;
+import grenc.giftmixer.backend.service.email.content.SampleContentGenerator;
 import grenc.giftmixer.backend.service.email.content.TargetGiftContentGenerator;
 import grenc.giftmixer.backend.service.email.content.VerificationContentGenerator;
 import grenc.giftmixer.backend.service.email.content.WishInvitationContentGenerator;
+import java.util.List;
+import javax.mail.MessagingException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class EmailController {
 
+  @Autowired
+  private SampleContentGenerator sampleContentGenerator;
   @Autowired
   private VerificationContentGenerator verificationContentGenerator;
   @Autowired
@@ -52,6 +52,9 @@ public class EmailController {
   @Autowired
   private EmailService emailService;
 
+  @Value(value = "${host.address.wish}")
+  private String wishAddress;
+
   @RequestMapping(value = "/sendEmail_sample", method = RequestMethod.POST)
   public void sampleEmail(@RequestBody Long participantId) {
 		Participant participant = participantService.participantById(participantId);
@@ -59,8 +62,12 @@ public class EmailController {
 			System.out.println("Cannot determine participant with id: " + participantId);
 			return;
 		}
+
     try {
-      emailService.sample(participant.getEmail());
+      String subject = sampleContentGenerator.generateSubject();
+      String content = sampleContentGenerator.generateContent();
+      emailService.sendEmail(participant.getEmail(), subject, content);
+
     } catch (MessagingException e) {
       System.out.println("Failed to send sample message for: " + participant.getEmail());
       e.printStackTrace();
@@ -76,11 +83,12 @@ public class EmailController {
     for (Long participantId : participantIds) {
       Participant participant = participantService.participantById(participantId);
       String verificationLink = verificationService.verificationLink(participant);
-      String content = verificationContentGenerator.generateContent(
-          participant.getName(), verificationLink,
-          admin.getUsername(), admin.getEmail());
 
       try {
+        String content = verificationContentGenerator.generateContent(
+            participant.getName(), verificationLink,
+            admin.getUsername(), admin.getEmail());
+
         emailService.sendEmail(participant.getEmail(), subject, content);
 
         successfulMessages++;
@@ -103,12 +111,13 @@ public class EmailController {
 
     for (Long participantId : participantIds) {
       Participant participant = participantService.participantById(participantId);
-      String wishLink = wishInvitationContentGenerator.wishLink(participant);
-      String content = wishInvitationContentGenerator.generateContent(
-          participant.getName(), wishLink,
-          admin.getUsername(), admin.getEmail());
+      String wishLink = wishAddress + "/" + participant.getCode();
 
       try {
+        String content = wishInvitationContentGenerator.generateContent(
+            participant.getName(), wishLink,
+            admin.getUsername(), admin.getEmail());
+
         emailService.sendEmail(participant.getEmail(), subject, content);
 
         successfulMessages++;
@@ -139,9 +148,10 @@ public class EmailController {
 
           Wish targetWish = wishService.fetchWish(pair.getReceiverId());
           String wishContent = (targetWish != null) ? targetWish.getWishContent() : null;
-          String content = targetGiftContentGenerator.generateContent(receiver.getName(), wishContent);
 
           try {
+            String content = targetGiftContentGenerator.generateContent(receiver.getName(), wishContent);
+
             emailService.sendEmail(giver.getEmail(), subject, content);
 
             successfulMessages++;

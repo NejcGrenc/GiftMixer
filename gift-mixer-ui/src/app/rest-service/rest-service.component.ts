@@ -8,6 +8,10 @@ export class RestServiceComponent {
 
   constructor(private http: HttpClient) { }
 
+  get<T>(path: string): Observable<T> {
+    return this.http.get<T>(environment.backendBaseUrl + path);
+  }
+
   send(path: string, data: any): Observable<void> {
     return this.http.post<void>(environment.backendBaseUrl + path, data);
   }
