@@ -19,6 +19,6 @@ public class Wish {
 	@Column(nullable = false)
     private long participantId;
 	
-	@Column(columnDefinition = "text")
+	@Column(columnDefinition = "longtext")
 	private String wishContent;
 }
