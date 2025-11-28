@@ -64,7 +64,9 @@ public class ParticipantsController {
     	System.out.println("Participant edited");
     	return newParticipant;
 	}
-	
+
+	/* TODO This is actually not safe as someone can remove users that do not belong to them - add admin verification */
+
 	@RequestMapping(value = "/removeParticipant", method = RequestMethod.POST)
     public void removeParticipant(@RequestBody long removeParticipantId) {
     	System.out.println("Processing '/removeParticipant' request: " + removeParticipantId);

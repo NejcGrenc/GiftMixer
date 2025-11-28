@@ -1,8 +1,7 @@
 import { Chain } from './model/chain.model';
 import { RestServiceComponent } from '../rest-service/rest-service.component';
-import { AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthenticationService } from '../_security/authentication.service';
 import { AdminService } from './admin.service';
 import { GiftMixerAdmin } from './model/admin.model';
@@ -133,8 +132,6 @@ export class AdminComponent implements OnInit, AfterViewInit {
       this.admin = updatedAdmin;
     });
   }
-
-
 
   makeChain(): void {
     this.adminService.makeChain().subscribe(chain => {

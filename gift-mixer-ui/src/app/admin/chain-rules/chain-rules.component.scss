@@ -1,0 +1,35 @@
+.restriction-sections {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 6rem;
+}
+
+.no-data-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-text {
+  text-align: center;
+  width: 6rem;
+}
+.padding-left {
+  padding-left: 2rem;
+}
+
+#chain-rule-form {
+  & mat-form-field {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    & > button {
+      margin: 0 5px;
+    }
+  }
+}
+
+.error-on-add {
+  color: red;
+}

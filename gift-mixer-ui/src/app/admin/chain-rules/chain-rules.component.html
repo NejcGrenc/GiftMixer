@@ -1,0 +1,61 @@
+
+<h4>Omejitve</h4>
+
+<div class="restriction-sections">
+  <div *ngIf="!chainRules || chainRules.length == 0" class="no-data-text">
+    <i>Nobenih omejitev glede parov prejemnikov</i>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" *ngIf="chainRules && chainRules.length > 0" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="giver">
+      <th mat-header-cell *matHeaderCellDef> Dajalec </th>
+      <td mat-cell *matCellDef="let element"> {{ findParticipantById(element.giverId).name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ruleType">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element" class="center-text"> ne bo dal </td>
+    </ng-container>
+
+    <ng-container matColumnDef="receiver">
+      <th mat-header-cell *matHeaderCellDef> Prejemnik </th>
+      <td mat-cell *matCellDef="let element"> {{ findParticipantById(element.receiverId).name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element" class="padding-left">
+        <button mat-raised-button class="icon-button" (click)="removeChainRule(element.id)"><mat-icon>remove_circle_outline</mat-icon></button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <form id="chain-rule-form" [formGroup]="chainRuleForm">
+
+    <div>
+      <mat-form-field appearance="standard">
+        <mat-label>Dajalec</mat-label>
+        <input matInput placeholder="Dajalec" formControlName="giverFormControl">
+        <mat-error *ngIf="chainRuleForm.get('giverFormControl').hasError('required')">
+          Dajalec je potreben
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard">
+        <mat-label>Prejemnik</mat-label>
+        <input matInput placeholder="Prejemnik" formControlName="receiverFormControl">
+        <mat-error *ngIf="chainRuleForm.get('receiverFormControl').hasError('required')">
+          Prejemnik je potreben
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button [disabled]="!chainRuleForm.valid" (click)="submitAddRule()"> Dodaj pravilo </button>
+
+    </div>
+    <p class="error-on-add" *ngIf="!!errorOnAdd"><i>{{ errorOnAdd }}</i></p>
+  </form>
+</div>

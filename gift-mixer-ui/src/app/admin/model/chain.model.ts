@@ -12,3 +12,11 @@ export class Chain {
     public pairs: GiverRecieverPair[]
   ) { }
 }
+
+export class ChainRule {
+  constructor(
+    public id: number,
+    public giverId: number,
+    public receiverId: number,
+  ) { }
+}

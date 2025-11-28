@@ -34,6 +34,7 @@ import {
 import { QuillModule } from 'ngx-quill';
 import * as Emoji from 'quill-emoji';
 import Quill from 'quill';
+import { ChainRulesComponent } from './admin/chain-rules/chain-rules.component';
 
 // Register the emoji module globally
 Quill.register('modules/emoji', Emoji);
@@ -54,6 +55,7 @@ Quill.register('modules/emoji', Emoji);
     EmailSenderPopupComponent,
     SingleTestMessagePopupComponent,
     ChainShowPopupComponent,
+    ChainRulesComponent,
 
   ],
   imports: [

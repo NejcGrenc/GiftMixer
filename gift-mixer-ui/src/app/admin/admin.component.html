@@ -75,7 +75,10 @@
 
 
     <h3>(3) Zamešaj udeležence in razdeli v pare darovalec-prejemnik</h3>
-    <div>
+    <app-chain-rules></app-chain-rules>
+
+    <h4>Pari</h4>
+    <div style="display: flex; gap: 1rem;">
       <button mat-raised-button [class.already-done]="chain !== null" (click)="makeChain()">
         <mat-icon>link</mat-icon> Ustvari pare
       </button>

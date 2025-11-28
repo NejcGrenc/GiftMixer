@@ -1,16 +1,9 @@
 package grenc.giftmixer.backend.controller.chain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import grenc.giftmixer.backend.controller.chain.model.ChainResponse;
+import grenc.giftmixer.backend.controller.chain.model.ChainRuleRequest;
 import grenc.giftmixer.backend.model.chain.Chain;
+import grenc.giftmixer.backend.model.chain.ChainRule;
 import grenc.giftmixer.backend.model.chain.ChainService;
 import grenc.giftmixer.backend.model.chain.GiverRecieverPair;
 import grenc.giftmixer.backend.model.user.admin.Admin;
@@ -18,6 +11,14 @@ import grenc.giftmixer.backend.model.user.admin.AdminService;
 import grenc.giftmixer.backend.model.user.participant.Participant;
 import grenc.giftmixer.backend.model.user.participant.ParticipantService;
 import grenc.giftmixer.backend.service.delegate.PairSorter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ChainController {
@@ -86,5 +87,25 @@ public class ChainController {
 	private String participantName(long participantId) {
 		Participant participant = participantService.participantById(participantId);
 		return (participant != null) ? participant.getName() : null;
+	}
+
+	@RequestMapping(value = "/getChainRules", method = RequestMethod.POST)
+	public List<ChainRule> getChainRules() {
+		System.out.println("Processing '/getChainRules' request");
+		Admin admin = adminService.currentAdmin();
+		return chainService.getAllRules(admin);
+	}
+
+	@RequestMapping(value = "/addBlockingChainRule", method = RequestMethod.POST)
+	public ChainRule addBlockingChainRule(@RequestBody ChainRuleRequest chainRuleRequest) {
+		System.out.println("Processing '/addBlockingChainRule' request");
+		Admin admin = adminService.currentAdmin();
+		return chainService.addBlockingRule(admin.getId(), chainRuleRequest.getGiverId(), chainRuleRequest.getReceiverId());
+	}
+
+	@RequestMapping(value = "/removeChainRule", method = RequestMethod.POST)
+	public void removeBlockingChainRule(@RequestBody long chainRuleId) {
+		System.out.println("Processing '/removeChainRule' request");
+		chainService.removeRule(chainRuleId);
 	}
 }
