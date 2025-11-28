@@ -45,27 +45,35 @@ public class ChainController {
 	
 	@RequestMapping(value = "/makeChain", method = RequestMethod.POST)
     public ChainResponse makeChain() {
-    	System.out.println("Processing '/makeChain' request");
-    	
-    	Admin admin = adminService.currentAdmin();
-    	
-    	List<Participant> listOfUsers = participantService.participants(admin);
-    	System.out.println("Found " + listOfUsers.size() + " participants.");
+		try {
+			System.out.println("Processing '/makeChain' request");
 
-    	List<Long> listOfUserIds = listOfUsers.stream().map(Participant::getId).collect(Collectors.toList());
-    	List<GiverRecieverPair> pairs = pairSorter.splitIntoPairs(listOfUserIds);
-    	System.out.println("Created " + pairs.size() + " pairs.");
+			Admin admin = adminService.currentAdmin();
 
-    	Chain chain = chainService.findChain(admin.getId());
-    	if (chain != null) {
-        	System.out.println("Chain already exists for admin " + admin.getId());
-        	System.out.println("Remaking the chain!");
-        	chain = chainService.remakeChain(chain, pairs);
-    	}
-    	else {
-    		chain = chainService.makeChain(admin.getId(), pairs);
-    	}
-    	return mapToResponse(chain);
+			List<Participant> listOfUsers = participantService.participants(admin);
+			System.out.println("Found " + listOfUsers.size() + " participants.");
+			List<Long> listOfUserIds = listOfUsers.stream().map(Participant::getId).collect(Collectors.toList());
+
+			List<ChainRule> chainRules = chainService.getAllRules(admin);
+
+			List<GiverRecieverPair> pairs = pairSorter.splitIntoPairs(listOfUserIds, chainRules);
+			System.out.println("Created " + pairs.size() + " pairs.");
+
+			Chain chain = chainService.findChain(admin.getId());
+			if (chain != null) {
+				System.out.println("Chain already exists for admin " + admin.getId());
+				System.out.println("Remaking the chain!");
+				chain = chainService.remakeChain(chain, pairs);
+			} else {
+				chain = chainService.makeChain(admin.getId(), pairs);
+			}
+			return mapToResponse(chain);
+
+		} catch (RuntimeException e) {
+			ChainResponse response = new ChainResponse();
+			response.setError(e.getMessage());
+			return response;
+		}
 	}
 	
 	private ChainResponse mapToResponse(Chain chain) {

@@ -85,7 +85,8 @@
       <button mat-raised-button (click)="showChain()">
         <mat-icon>visibility</mat-icon> Pokaži pare
       </button>
-      <mat-icon *ngIf="chain !== null" class="check-circle">check_circle_outline</mat-icon>
+      <mat-icon *ngIf="chain !== null && chain.pairs != null" class="check-circle">check_circle_outline</mat-icon>
+      <p *ngIf="chain != null && chain.error != null" style="color: red"><i>{{chain.error}}</i></p>
     </div>
 
 

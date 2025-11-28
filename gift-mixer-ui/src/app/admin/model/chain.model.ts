@@ -9,6 +9,7 @@ export class GiverRecieverPair {
 
 export class Chain {
   constructor(
+    public error: string,
     public pairs: GiverRecieverPair[]
   ) { }
 }

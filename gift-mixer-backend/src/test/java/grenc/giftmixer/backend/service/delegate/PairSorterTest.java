@@ -30,7 +30,7 @@ public class PairSorterTest {
 	@Test
 	public void shouldCreatePairs() {
 		List<Long> original = Arrays.asList(100L, 101L, 102L, 103L, 104L);
-		List<GiverRecieverPair> pairs = sorter.splitIntoPairs(original);
+		List<GiverRecieverPair> pairs = sorter.splitIntoPairs(original, Collections.emptyList());
 		
 		Set<Long> setOfGivers = new HashSet<>();
 		Set<Long> setOfReceivers = new HashSet<>();

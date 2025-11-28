@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class ChainResponse {
 
+	private String error;
 	private List<PairResponse> pairs;
 	
 	@Data
