@@ -42,3 +42,11 @@ create table giftmixer.wish (
   participant_id  bigint not null, 
   wish_content    text
 );
+
+create table giftmixer.chain_rule (
+    id bigint NOT NULL  AUTO_INCREMENT  primary key,
+    admin_id bigint not null,
+    rule_type   varchar(255) not null,
+    giver_id bigint not null,
+    receiver_id bigint not null
+);
